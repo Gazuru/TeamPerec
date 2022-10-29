@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include "MyCustomException.h"
 using namespace std;
 
 struct CaffCredits
@@ -24,7 +25,7 @@ struct CaffCredits
         /*unsigned int id{};
         ifstream.read(reinterpret_cast<char *>(&id), 1);
         if(id != 2){
-            throw invalid_argument("credit id must be 2");
+            throw MyCustomException("credit id must be 2");
         }*/
 
         //TODO - validate with length
@@ -51,7 +52,7 @@ struct CaffCredits
         std::cout << "creator is: " << creator << endl;
 
         if(length != 6+8+creatorLength)
-            throw invalid_argument("length size is not correct");
+            throw MyCustomException("length size is not correct");
     }
 };
 

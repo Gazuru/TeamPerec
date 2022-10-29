@@ -2,6 +2,9 @@
 #define CAFFHEADER_H
 
 #include <fstream>
+#include "MyCustomException.h"
+
+
 using namespace std;
 
 class CaffHeader
@@ -20,7 +23,8 @@ class CaffHeader
         unsigned int id{};
         ifstream.read(reinterpret_cast<char *>(&id), 1);
         if(id != 1){
-            throw invalid_argument("header id must be 1");
+            throw MyCustomException("header id must be 1");
+            
         }
 
         //TODO - validate with length
@@ -31,18 +35,18 @@ class CaffHeader
         ifstream.read(reinterpret_cast<char *>(&magic), 4);
         if(!(magic[0] == 'C' && magic[1] == 'A' && magic[2] == 'F' && magic[3] == 'F')){
             //TODO Lecserélni normális kivételre
-            throw invalid_argument("magic is not present");
+            throw MyCustomException("magic is not present");
         }
         ifstream.read(reinterpret_cast<char *>(&headerSize), 8);
         //header size must be 20
         if(headerSize!= 20)
-            throw invalid_argument("header size is not correct");
+            throw MyCustomException("header size is not correct");
 
         ifstream.read(reinterpret_cast<char *>(&numAnim), 8);
 
         //length must be 20
         if(length != 20)
-            throw invalid_argument("length size is not correct");
+            throw MyCustomException("length size is not correct");
     }
 };
 

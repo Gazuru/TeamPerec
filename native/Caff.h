@@ -1,3 +1,6 @@
+#ifndef CAFF_H
+#define CAFF_H
+
 #include "Ciff.h"
 #include "CaffAnimation.h"
 #include "CaffCredits.h"
@@ -9,3 +12,6 @@ struct Caff
     CaffCredits caffCredits;
     std::vector<CaffAnimation> caffAnimations;
 };
+
+
+#endif

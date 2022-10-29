@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include "Ciff.h"
+#include "MyCustomException.h"
 using namespace std;
 
 struct CaffAnimation
@@ -23,7 +24,7 @@ struct CaffAnimation
         /*unsigned int id{};
         ifstream.read(reinterpret_cast<char *>(&id), 1);
         if(id != 3){
-            throw invalid_argument("header id must be 3");
+            throw MyCustomException("header id must be 3");
         }*/
 
         //TODO - validate with length

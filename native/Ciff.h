@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
-
+#include "MyCustomException.h"
 using namespace std;
 
 struct Ciff {
@@ -25,7 +25,7 @@ struct Ciff {
         ifstream.read(reinterpret_cast<char *>(&magic), 4);
         if(!(magic[0] == 'C' && magic[1] == 'I' && magic[2] == 'F' && magic[3] == 'F')){
             //TODO Lecserélni normális kivételre
-            throw invalid_argument("magic is not present");
+            throw MyCustomException("magic is not present");
         }
         ifstream.read(reinterpret_cast<char *>(&headerSize), 8);
         ifstream.read(reinterpret_cast<char *>(&contentSize), 8);
@@ -33,12 +33,12 @@ struct Ciff {
         ifstream.read(reinterpret_cast<char *>(&height), 8);
 
         if((width == 0 || height == 0) && contentSize != 0){
-            throw invalid_argument("no pixels should be present according to size given");
+            throw MyCustomException("no pixels should be present according to size given");
         }
         
         if (contentSize != width*height*3)
         {
-            throw invalid_argument("content size not width*height*3");
+            throw MyCustomException("content size not width*height*3");
         }
         //todo - read function where we increamenta a value for each byte read, after it exceeds headerSize error will be thrown
 
@@ -47,6 +47,18 @@ struct Ciff {
         readTags(ifstream);
 
         readPixels(ifstream);
+    }
+    std::vector<unsigned char> pixelsAsRGBA8() {
+        vector<unsigned char> rgba8Pixels {};
+
+        for (int i = 0; i < pixels.size(); i++) {   
+            if (i % 3 == 0 && i != 0) {
+                rgba8Pixels.push_back(255);
+            }
+            rgba8Pixels.push_back(pixels.at(i));
+        }
+        rgba8Pixels.push_back(255);
+        return rgba8Pixels;
     }
 
     void readCaption(std::ifstream &ifstream){
@@ -91,7 +103,7 @@ struct Ciff {
         }
         if (!wasLastChar0)
         {
-            throw invalid_argument("last character must be \\0");
+            throw MyCustomException("last character must be \\0");
         }
     }
 
