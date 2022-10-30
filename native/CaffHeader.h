@@ -27,14 +27,12 @@ class CaffHeader
             
         }
 
-        //TODO - validate with length
         uint64_t length;
         ifstream.read(reinterpret_cast<char *>(&length), 8);
 
         char magic[4];
         ifstream.read(reinterpret_cast<char *>(&magic), 4);
         if(!(magic[0] == 'C' && magic[1] == 'A' && magic[2] == 'F' && magic[3] == 'F')){
-            //TODO Lecserélni normális kivételre
             throw MyCustomException("magic is not present");
         }
         ifstream.read(reinterpret_cast<char *>(&headerSize), 8);
@@ -44,7 +42,7 @@ class CaffHeader
 
         ifstream.read(reinterpret_cast<char *>(&numAnim), 8);
 
-        //length must be 20
+        //length must be 20 (4+8+8)
         if(length != 20)
             throw MyCustomException("length size is not correct");
     }

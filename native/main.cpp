@@ -12,9 +12,12 @@ using namespace std;
 
 
 void run() {
-    string inputFileName = "3.caff";
+    string inputFileName = "myafl4part2 (4)";
 
     ifstream ifstream(inputFileName, ios::binary);
+    if (!ifstream.is_open()) {
+        throw MyCustomException("could not open file");
+    }
 
     Caff caff{};
 
@@ -50,9 +53,8 @@ void run() {
         throw MyCustomException("The id given is invalid");
     }
 
-
+    //TODO - close even when we throw custom exception
     ifstream.close();
-
 
     //convert to GIF
 
@@ -60,7 +62,8 @@ void run() {
     int delay = 100;
     GifWriter g;
     GifBegin(&g, fileName, caff.caffAnimations.at(0).image.width, caff.caffAnimations.at(0).image.height, delay);
-    for (int i = 0; i < caff.caffAnimations.size(); i++) { 
+    //we must also use uint64_t because num_anim is 8 byte long
+    for (uint64_t i = 0; i < caff.caffAnimations.size(); i++) { 
         auto caffAnim = caff.caffAnimations.at(i);
       
 

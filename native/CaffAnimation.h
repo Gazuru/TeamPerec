@@ -21,18 +21,16 @@ struct CaffAnimation
     Ciff image;
 
     void init(std::ifstream &ifstream){
-        /*unsigned int id{};
-        ifstream.read(reinterpret_cast<char *>(&id), 1);
-        if(id != 3){
-            throw MyCustomException("header id must be 3");
-        }*/
-
-        //TODO - validate with length
         uint64_t length;
         ifstream.read(reinterpret_cast<char *>(&length), 8);
         
-        ifstream.read(reinterpret_cast<char *>(&duration), 8);
-        image.init(ifstream);
+        ifstream.read(reinterpret_cast<char *>(&duration), 8);  
+        
+        image.init(ifstream, length-8);
+
+        //length = 8 + ciff whole size is already checked in Ciff.init()
+        
+
     }
 };
 
