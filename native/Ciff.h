@@ -32,10 +32,6 @@ struct Ciff {
         }
         ifstream.read(reinterpret_cast<char *>(&headerSize), 8);
         ifstream.read(reinterpret_cast<char *>(&contentSize), 8);
-        //TODO - REMOVE THIS EXCEPTION
-        if (maxSize > 1000000000 && headerSize > 1000000000) {
-            throw MyCustomException("temp exception - would take to long to test");
-        }
         //watch for overflow
         if (Util::isAdditionOverflow(headerSize, contentSize)) {
             throw MyCustomException("ciff exceeds given lenght limit");
@@ -53,6 +49,9 @@ struct Ciff {
         if(headerSize < 4+8+8+8+8)
             throw MyCustomException("header size less than minimum");
         //check for overflow
+        if (Util::isMultiplicationOverflow(height, 3)) {
+            throw MyCustomException("content size not width*height*3");
+        }
         if (Util::isMultiplicationOverflow(width, height * 3)) {
             throw MyCustomException("content size not width*height*3");
         }          

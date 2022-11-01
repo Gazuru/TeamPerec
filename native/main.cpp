@@ -11,13 +11,10 @@ using namespace std;
 
 
 
-void run() {
-    string inputFileName = "myafl4part2 (4)";
+void run(std::ifstream& ifstream, string outputFileName) {
 
-    ifstream ifstream(inputFileName, ios::binary);
-    if (!ifstream.is_open()) {
-        throw MyCustomException("could not open file");
-    }
+
+    
 
     Caff caff{};
 
@@ -53,15 +50,12 @@ void run() {
         throw MyCustomException("The id given is invalid");
     }
 
-    //TODO - close even when we throw custom exception
-    ifstream.close();
-
     //convert to GIF
 
-    auto fileName = "test.gif";
+    auto fileName = outputFileName + ".gif";
     int delay = 100;
     GifWriter g;
-    GifBegin(&g, fileName, caff.caffAnimations.at(0).image.width, caff.caffAnimations.at(0).image.height, delay);
+    GifBegin(&g, fileName.c_str(), caff.caffAnimations.at(0).image.width, caff.caffAnimations.at(0).image.height, delay);
     //we must also use uint64_t because num_anim is 8 byte long
     for (uint64_t i = 0; i < caff.caffAnimations.size(); i++) { 
         auto caffAnim = caff.caffAnimations.at(i);
@@ -74,15 +68,43 @@ void run() {
 
 }
 
-int main(int, char **)
+int main(int argc, char ** argv)
 {
 
     try {
-        run();
+        if (argc != 3)
+            throw MyCustomException("invalid number of arguements");
     }
     catch (MyCustomException e) {
         std::cout << "Message: " << e.what() << "\n";
+        return 1;
     }
+    //string inputFileName = "1.caff";
+    //string outputFileName = "mytestgifff";
+    string inputFileName = argv[1];
+    string outputFileName = argv[2];
+
+    ifstream ifstream(inputFileName, ios::binary);
+    
+
+    try {
+
+
+        if (!ifstream.is_open()) {
+            throw MyCustomException("could not open file");
+        }
+
+        run(ifstream, outputFileName);
+        ifstream.close();
+    }
+    catch (MyCustomException e) {
+        std::cout << "Message: " << e.what() << "\n";
+        ifstream.close();
+    }
+    catch (...) {
+        ifstream.close();
+    }
+    
     
 
     return 0;
