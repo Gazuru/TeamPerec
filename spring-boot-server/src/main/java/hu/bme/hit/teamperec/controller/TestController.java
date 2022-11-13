@@ -1,4 +1,4 @@
-package hu.bme.hit.teamperec.controllers;
+package hu.bme.hit.teamperec.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
