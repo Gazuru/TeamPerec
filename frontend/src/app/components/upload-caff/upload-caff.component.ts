@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./upload-caff.component.css']
 })
 export class UploadCaffComponent implements OnInit {
-
+  form:any;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onSubmit() {
+
+  }
 }
