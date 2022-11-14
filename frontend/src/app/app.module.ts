@@ -9,7 +9,7 @@ import {BoardUserComponent} from './components/board-user/board-user.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {ProfileComponent} from './components/profile/profile.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {authInterceptorProviders} from "./helpers/auth.interceptor";
 import { CaffsComponent } from './components/caffs/caffs.component';
@@ -41,7 +41,8 @@ import { CaffCardComponent } from './components/caff-card/caff-card.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
