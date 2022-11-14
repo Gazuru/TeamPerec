@@ -15,6 +15,7 @@
               (change)="onFileChange($event)">
             <div *ngIf="f['file'].touched && f['file'].invalid" class="alert alert-danger">
               <div *ngIf="f['file'].errors && f['file'].errors['required']">File is required.</div>
+              <div *ngIf="f['file'].errors && f['file'].errors['pattern']">File should be of extensions: .caff, .CAFF, .Caff.</div>
             </div>
           </div>
 
