@@ -13,6 +13,12 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {authInterceptorProviders} from "./helpers/auth.interceptor";
+import { CaffsComponent } from './components/caffs/caffs.component';
+import { MyCaffsComponent } from './components/my-caffs/my-caffs.component';
+import { UploadCaffComponent } from './components/upload-caff/upload-caff.component';
+import { DetailsCaffComponent } from './components/details-caff/details-caff.component';
+import { DetailsProfileComponent } from './components/details-profile/details-profile.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +29,13 @@ import {authInterceptorProviders} from "./helpers/auth.interceptor";
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    CaffsComponent,
+    MyCaffsComponent,
+    UploadCaffComponent,
+    DetailsCaffComponent,
+    DetailsProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
