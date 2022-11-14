@@ -1,8 +1,8 @@
 .submit-container {
-  text-align: end;
+  text-align: start;
 }
 
-.right {
+.left {
   display: flex;
   flex-direction: column;
   justify-content: space-between;

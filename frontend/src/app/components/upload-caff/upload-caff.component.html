@@ -1,54 +1,58 @@
 <div class="mt-2">
-  <h2>Upload CAFF</h2>
-
+  <h2 class="mb-3">Upload CAFF</h2>
+  <form [formGroup]="myForm" (ngSubmit)="submit()">
   <div class="rounded-3 text-bg-dark p-2">
-
-    <form
-      class=""
-      name="form"
-      #f="ngForm"
-      novalidate
-    >
       <div class="row p-2">
-        <div class="col-md-5">
-          <img src="https://cdn.pixabay.com/photo/2022/11/01/05/18/coffee-7561288_960_720.jpg"
-               class="img-fluid rounded mb-2" alt="...">
-          <button class="btn btn-light btn-block search-button w-100">Upload CAFF file</button>
+        <div class="col-md-5 left">
+
+          <div class="form-group">
+            <label for="file">File</label>
+            <input
+              formControlName="file"
+              id="file"
+              type="file"
+              class="form-control"
+              (change)="onFileChange($event)">
+            <div *ngIf="f['file'].touched && f['file'].invalid" class="alert alert-danger">
+              <div *ngIf="f['file'].errors && f['file'].errors['required']">File is required.</div>
+            </div>
+          </div>
+
+          <div class="form-group submit-container mt-2">
+            <button class="btn btn-light btn-block w-100" [disabled]="myForm.invalid" type="submit">Upload CAFF</button>
+          </div>
         </div>
-        <div class="col-md-7 right">
-        <div>
-          <div class="form-group mb-3">
+        <div class="col-md-7">
+          <div class="form-group">
             <label for="name">Name</label>
             <input
+              formControlName="name"
               id="name"
               type="text"
-              class="form-control"
-              name="name"
-              [(ngModel)]="form.name"
-              #name="ngModel"
-            />
+              class="form-control">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="alert alert-danger">
+              <div *ngIf="f['name'].errors && f['name'].errors['required']">Name is required.</div>
+              <div *ngIf="f['name'].errors && f['name'].errors['minlength']">Name should be at least {{nameMinLength}} character.</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="description">Description</label>
             <textarea
-
+              formControlName="description"
               id="description"
-              type="text"
               rows="7"
-              class="form-control"
-              name="description"
-              [(ngModel)]="form.description"
-              #uploader="ngModel"
-            ></textarea>
+              type="text"
+              class="form-control"></textarea>
+            <div *ngIf="f['description'].touched && f['description'].invalid" class="alert alert-danger">
+              <div *ngIf="f['description'].errors && f['description'].errors['required']">Description is required.</div>
+              <div *ngIf="f['description'].errors && f['description'].errors['minlength']">Description should be at least {{descriptionMinLength}} character.</div>
+            </div>
           </div>
-        </div>
         <div>
-          <div class="form-group submit-container">
-            <button class="btn btn-light btn-block search-button" (click)="onSubmit()">Save</button>
-          </div>
         </div>
         </div>
       </div>
-    </form>
   </div>
+  </form>
+
 </div>
