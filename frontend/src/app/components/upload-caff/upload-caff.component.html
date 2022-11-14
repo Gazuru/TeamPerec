@@ -1,1 +1,54 @@
-<p>upload-caff works!</p>
+<div class="mt-2">
+  <h2>Upload CAFF</h2>
+
+  <div class="rounded-3 text-bg-dark p-2">
+
+    <form
+      class=""
+      name="form"
+      #f="ngForm"
+      novalidate
+    >
+      <div class="row p-2">
+        <div class="col-md-5">
+          <img src="https://cdn.pixabay.com/photo/2022/11/01/05/18/coffee-7561288_960_720.jpg"
+               class="img-fluid rounded mb-2" alt="...">
+          <button class="btn btn-light btn-block search-button w-100">Upload CAFF file</button>
+        </div>
+        <div class="col-md-7 right">
+        <div>
+          <div class="form-group mb-3">
+            <label for="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              class="form-control"
+              name="name"
+              [(ngModel)]="form.name"
+              #name="ngModel"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+
+              id="description"
+              type="text"
+              rows="7"
+              class="form-control"
+              name="description"
+              [(ngModel)]="form.description"
+              #uploader="ngModel"
+            ></textarea>
+          </div>
+        </div>
+        <div>
+          <div class="form-group submit-container">
+            <button class="btn btn-light btn-block search-button" (click)="onSubmit()">Save</button>
+          </div>
+        </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

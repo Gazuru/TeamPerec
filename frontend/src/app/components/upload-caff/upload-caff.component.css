@@ -1,0 +1,9 @@
+.submit-container {
+  text-align: end;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
