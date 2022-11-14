@@ -17,7 +17,7 @@ export class UploadCaffComponent implements OnInit {
   myForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(this.nameMinLength)]),
     description: new FormControl('', [Validators.minLength(this.descriptionMinLength)]),
-    file: new FormControl('', [Validators.required]),
+    file: new FormControl('', [Validators.required,Validators.pattern("^.*\\.(caff|CAFF|Caff)$")]),
     fileSource: new FormControl('', [Validators.required])
   });
 
