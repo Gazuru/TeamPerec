@@ -1,7 +1,7 @@
 <div class="mt-2">
   <h2 class="mb-3">Upload CAFF</h2>
   <form [formGroup]="myForm" (ngSubmit)="submit()">
-  <div class="rounded-3 text-bg-dark p-2">
+    <div class="rounded-3 text-bg-dark p-2">
       <div class="row p-2">
         <div class="col-md-5 left">
 
@@ -15,7 +15,9 @@
               (change)="onFileChange($event)">
             <div *ngIf="f['file'].touched && f['file'].invalid" class="alert alert-danger">
               <div *ngIf="f['file'].errors && f['file'].errors['required']">File is required.</div>
-              <div *ngIf="f['file'].errors && f['file'].errors['pattern']">File should be of extensions: .caff, .CAFF, .Caff.</div>
+              <div *ngIf="f['file'].errors && f['file'].errors['pattern']">File should be of extensions: .caff, .CAFF,
+                .Caff.
+              </div>
             </div>
           </div>
 
@@ -33,7 +35,9 @@
               class="form-control">
             <div *ngIf="f['name'].touched && f['name'].invalid" class="alert alert-danger">
               <div *ngIf="f['name'].errors && f['name'].errors['required']">Name is required.</div>
-              <div *ngIf="f['name'].errors && f['name'].errors['minlength']">Name should be at least {{nameMinLength}} character.</div>
+              <div *ngIf="f['name'].errors && f['name'].errors['minlength']">Name should be at least {{nameMinLength}}
+                character.
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -46,14 +50,16 @@
               class="form-control"></textarea>
             <div *ngIf="f['description'].touched && f['description'].invalid" class="alert alert-danger">
               <div *ngIf="f['description'].errors && f['description'].errors['required']">Description is required.</div>
-              <div *ngIf="f['description'].errors && f['description'].errors['minlength']">Description should be at least {{descriptionMinLength}} character.</div>
+              <div *ngIf="f['description'].errors && f['description'].errors['minlength']">Description should be at
+                least {{descriptionMinLength}} character.
+              </div>
             </div>
           </div>
-        <div>
-        </div>
+          <div>
+          </div>
         </div>
       </div>
-  </div>
+    </div>
   </form>
 
 </div>

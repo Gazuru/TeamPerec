@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UploadCaffComponent } from './upload-caff.component';
+import {UploadCaffComponent} from './upload-caff.component';
 
 describe('UploadCaffComponent', () => {
   let component: UploadCaffComponent;
@@ -8,9 +8,9 @@ describe('UploadCaffComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UploadCaffComponent ]
+      declarations: [UploadCaffComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(UploadCaffComponent);
     component = fixture.componentInstance;

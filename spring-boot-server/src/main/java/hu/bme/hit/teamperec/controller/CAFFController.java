@@ -28,7 +28,8 @@ public class CAFFController {
     // CAFF functionality
 
     @GetMapping("/list")
-    public ResponseEntity<List<CAFF>> getCaffs(@RequestParam(required = false)String uploader,@RequestParam(required = false)String name) {
+    public ResponseEntity<List<CAFF>> getCaffs(@RequestParam(required = false) String uploader,
+                                               @RequestParam(required = false) String name) {
         return new ResponseEntity<>(caffService.getCaffs(), HttpStatus.OK);
     }
 

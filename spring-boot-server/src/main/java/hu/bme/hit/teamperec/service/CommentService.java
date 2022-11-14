@@ -20,7 +20,7 @@ public class CommentService {
     public Comment createComment(UUID caffId, CommentDto commentDto) {
         var comment = new Comment();
         var caff = caffService.getCaff(caffId);
-        var user = userService.getUser(commentDto.commenterId());
+        var user = userService.getUser(commentDto.commenter());
 
         comment.setCommentText(commentDto.commentText());
         comment.setCaff(caff);

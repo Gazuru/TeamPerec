@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Caff} from "../../models/caff";
+import {Component, OnInit} from '@angular/core';
 import {CaffService} from "../../services/caff.service";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-caffs',
@@ -14,9 +12,10 @@ export class CaffsComponent implements OnInit {
     uploader: null
   };
 
-  caffs: any[]=[];
+  caffs: any[] = [];
 
-  constructor(private caffService:CaffService) { }
+  constructor(private caffService: CaffService) {
+  }
 
   ngOnInit(): void {
     //this.getCaffsList();
@@ -26,7 +25,7 @@ export class CaffsComponent implements OnInit {
     return false;
   }
 
-  getCaffsList(){
+  getCaffsList() {
     this.caffService.getCaffsList().subscribe(
       data => {
         console.log(data);

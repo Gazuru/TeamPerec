@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DetailsCaffComponent } from './details-caff.component';
+import {DetailsCaffComponent} from './details-caff.component';
 
 describe('DetailsCaffComponent', () => {
   let component: DetailsCaffComponent;
@@ -8,9 +8,9 @@ describe('DetailsCaffComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetailsCaffComponent ]
+      declarations: [DetailsCaffComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DetailsCaffComponent);
     component = fixture.componentInstance;
