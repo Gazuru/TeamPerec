@@ -7,5 +7,5 @@ import hu.bme.hit.teamperec.data.entity.CAFF;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CAFFRepository extends JpaRepository<CAFF, UUID> {
-    List<CAFF> findAllByUploaderId(UUID uploaderId);
+    List<CAFF> findAllByUploaderIdOrderByUploadedAtDesc(UUID uploaderId);
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {FormGroup} from "@angular/forms";
-import {Caff} from "../models/caff";
+import {CaffResponse} from "../models/caff-response";
 
 const API_URL = 'http://localhost:8080/api/caff/';
 
@@ -14,8 +14,8 @@ export class CaffService {
   constructor(private http: HttpClient) {
   }
 
-  getCaffsList(): Observable<Caff[]> {
-    return this.http.get<Caff[]>(API_URL + 'list');
+  getCaffsList(): Observable<CaffResponse[]> {
+    return this.http.get<CaffResponse[]>(API_URL + 'list');
   }
 
   uploadCaff(myForm: FormGroup) {
@@ -24,7 +24,7 @@ export class CaffService {
     formData.append('name', myForm.get('name')?.value);
     formData.append('description', myForm.get('description')?.value);
 
-    this.http.post<Caff>(API_URL + "upload", formData)
+    this.http.post<CaffResponse>(API_URL + "upload", formData)
       .subscribe(res => {
         console.log(res);
         alert('Uploaded Successfully.');

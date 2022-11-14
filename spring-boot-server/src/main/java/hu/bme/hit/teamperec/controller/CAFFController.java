@@ -5,8 +5,8 @@ import java.util.UUID;
 
 import hu.bme.hit.teamperec.data.dto.CAFFDto;
 import hu.bme.hit.teamperec.data.dto.CommentDto;
-import hu.bme.hit.teamperec.data.entity.CAFF;
-import hu.bme.hit.teamperec.data.entity.Comment;
+import hu.bme.hit.teamperec.data.response.CAFFResponse;
+import hu.bme.hit.teamperec.data.response.CommentResponse;
 import hu.bme.hit.teamperec.service.CAFFService;
 import hu.bme.hit.teamperec.service.CommentService;
 import lombok.RequiredArgsConstructor;
@@ -28,33 +28,33 @@ public class CAFFController {
     // CAFF functionality
 
     @GetMapping("/list")
-    public ResponseEntity<List<CAFF>> getCaffs(@RequestParam(required = false) String uploader,
-                                               @RequestParam(required = false) String name) {
+    public ResponseEntity<List<CAFFResponse>> getCaffs(@RequestParam(required = false) String uploader,
+                                                       @RequestParam(required = false) String name) {
         return new ResponseEntity<>(caffService.getCaffs(), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/caffs")
-    public ResponseEntity<List<CAFF>> getCaffsOfUser(@PathVariable UUID userId) {
+    public ResponseEntity<List<CAFFResponse>> getCaffsOfUser(@PathVariable UUID userId) {
         return new ResponseEntity<>(caffService.getCaffsOfUser(userId), HttpStatus.OK);
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<CAFF> uploadCaff(@RequestBody CAFFDto caffDto) {
+    public ResponseEntity<CAFFResponse> uploadCaff(@RequestBody CAFFDto caffDto) {
         return new ResponseEntity<>(caffService.uploadCaff(caffDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{caffId}")
-    public ResponseEntity<CAFF> getCaff(@PathVariable UUID caffId) {
+    public ResponseEntity<CAFFResponse> getCaff(@PathVariable UUID caffId) {
         return new ResponseEntity<>(caffService.getCaff(caffId), HttpStatus.OK);
     }
 
     @PatchMapping("/{caffId}")
-    public ResponseEntity<CAFF> updateCaff(@PathVariable UUID caffId, @RequestBody CAFFDto caffDto) {
+    public ResponseEntity<CAFFResponse> updateCaff(@PathVariable UUID caffId, @RequestBody CAFFDto caffDto) {
         return new ResponseEntity<>(caffService.updateCaff(caffId, caffDto), HttpStatus.OK);
     }
 
     @GetMapping("/{caffId}/download")
-    public ResponseEntity<CAFF> downloadCaff(@PathVariable UUID caffId) {
+    public ResponseEntity<CAFFResponse> downloadCaff(@PathVariable UUID caffId) {
         return new ResponseEntity<>(caffService.downloadCaff(caffId), HttpStatus.OK);
     }
 
@@ -66,7 +66,8 @@ public class CAFFController {
     }
 
     @PostMapping("/{caffId}/comment")
-    public ResponseEntity<Comment> createComment(@PathVariable UUID caffId, @RequestBody CommentDto commentDto) {
+    public ResponseEntity<CommentResponse> createComment(@PathVariable UUID caffId,
+                                                         @RequestBody CommentDto commentDto) {
         return new ResponseEntity<>(commentService.createComment(caffId, commentDto), HttpStatus.CREATED);
     }
 }

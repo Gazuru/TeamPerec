@@ -20,6 +20,11 @@ public class UserService {
                 () -> new ComputerSecurityException("User not found by id: " + id));
     }
 
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(
+                () -> new ComputerSecurityException("User not found by username: " + username));
+    }
+
     public List<User> getUsers() {
         return userRepository.findAll();
     }

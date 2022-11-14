@@ -1,9 +1,11 @@
 package hu.bme.hit.teamperec.data.entity;
 
+import java.util.Date;
 import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table(name = "comments")
@@ -20,5 +22,8 @@ public class Comment extends BaseEntity {
     private User commenter;
 
     private String commentText;
+
+    @CreatedDate
+    private Date createdAt;
 
 }

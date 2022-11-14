@@ -1,4 +1,4 @@
-package hu.bme.hit.teamperec.data.dto;
+package hu.bme.hit.teamperec.data.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
