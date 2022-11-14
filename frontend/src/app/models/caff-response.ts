@@ -1,4 +1,5 @@
-export interface Caff {
+export interface CaffResponse {
+  id: string;
   name: string;
   description: string;
   comments: any;
