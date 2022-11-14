@@ -1,4 +1,4 @@
-.caff-card-container{
+.caff-card-container {
   background-color: black;
   color: white;
   padding: 15px;
@@ -6,10 +6,10 @@
   justify-content: space-between;
 }
 
-.card{
+.card {
   margin: 20px;
 }
 
-.card-footer{
+.card-footer {
   border: 0;
 }

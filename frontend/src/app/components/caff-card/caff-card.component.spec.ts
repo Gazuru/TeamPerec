@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CaffCardComponent } from './caff-card.component';
+import {CaffCardComponent} from './caff-card.component';
 
 describe('CaffCardComponent', () => {
   let component: CaffCardComponent;
@@ -8,9 +8,9 @@ describe('CaffCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CaffCardComponent ]
+      declarations: [CaffCardComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CaffCardComponent);
     component = fixture.componentInstance;

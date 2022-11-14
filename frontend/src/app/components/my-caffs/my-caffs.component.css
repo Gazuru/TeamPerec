@@ -1,9 +1,9 @@
-.caffs-container{
+.caffs-container {
   display: flex;
   flex-wrap: wrap;
 }
 
-.top-bar{
+.top-bar {
   display: flex;
   justify-content: space-between;
 }

@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpResponse} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
 import {CaffService} from "../../services/caff.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
@@ -9,29 +8,29 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./upload-caff.component.css']
 })
 export class UploadCaffComponent implements OnInit {
-  form:any;
+  form: any;
 
-  descriptionMinLength:number=10;
-  nameMinLength:number=3;
+  descriptionMinLength: number = 10;
+  nameMinLength: number = 3;
 
   myForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(this.nameMinLength)]),
     description: new FormControl('', [Validators.minLength(this.descriptionMinLength)]),
-    file: new FormControl('', [Validators.required,Validators.pattern("^.*\\.(caff|CAFF|Caff)$")]),
+    file: new FormControl('', [Validators.required, Validators.pattern("^.*\\.(caff|CAFF|Caff)$")]),
     fileSource: new FormControl('', [Validators.required])
   });
 
-  constructor(private caffService:CaffService) {
+  constructor(private caffService: CaffService) {
   }
 
   ngOnInit(): void {
   }
 
-  get f(){
+  get f() {
     return this.myForm.controls;
   }
 
-  onFileChange(event:any) {
+  onFileChange(event: any) {
 
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -41,7 +40,7 @@ export class UploadCaffComponent implements OnInit {
     }
   }
 
-  submit(){
+  submit() {
     this.caffService.uploadCaff(this.myForm);
   }
 }
