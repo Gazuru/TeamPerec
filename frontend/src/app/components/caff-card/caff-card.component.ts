@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-caff-card',
@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./caff-card.component.css']
 })
 export class CaffCardComponent implements OnInit {
+  @Input() caff: any;
 
   constructor() {
   }

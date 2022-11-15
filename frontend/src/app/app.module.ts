@@ -3,8 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {BoardAdminComponent} from './components/board-admin/board-admin.component';
-import {BoardUserComponent} from './components/board-user/board-user.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {ProfileComponent} from './components/profile/profile.component';
@@ -18,12 +16,11 @@ import {DetailsCaffComponent} from './components/details-caff/details-caff.compo
 import {DetailsProfileComponent} from './components/details-profile/details-profile.component';
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {CaffCardComponent} from './components/caff-card/caff-card.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BoardAdminComponent,
-    BoardUserComponent,
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
@@ -33,7 +30,8 @@ import {CaffCardComponent} from './components/caff-card/caff-card.component';
     DetailsCaffComponent,
     DetailsProfileComponent,
     EditProfileComponent,
-    CaffCardComponent
+    CaffCardComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

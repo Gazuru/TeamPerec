@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CaffService} from "../../services/caff.service";
+import {CaffResponse} from "../../models/caff-response";
 
 @Component({
   selector: 'app-caffs',
@@ -12,13 +13,13 @@ export class CaffsComponent implements OnInit {
     uploader: null
   };
 
-  caffs: any[] = [];
+  caffs: CaffResponse[] = [];
 
   constructor(private caffService: CaffService) {
   }
 
   ngOnInit(): void {
-    //this.getCaffsList();
+    this.getCaffsList();
   }
 
   onSubmit() {

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {CaffResponse} from "../models/caff-response";
+import {TokenStorageService} from "./token-storage.service";
 
 const API_URL = 'http://localhost:8080/api/caff/';
 
@@ -11,11 +12,20 @@ const API_URL = 'http://localhost:8080/api/caff/';
 })
 export class CaffService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private tokenStorageService: TokenStorageService) {
   }
 
   getCaffsList(): Observable<CaffResponse[]> {
     return this.http.get<CaffResponse[]>(API_URL + 'list');
+  }
+
+  getMyCaffsList(): Observable<CaffResponse[]> {
+    const userId=this.tokenStorageService.getUser().id;
+    return this.http.get<CaffResponse[]>(API_URL + 'list');
+  }
+
+  getCaff(id:string): Observable<CaffResponse> {
+    return this.http.get<CaffResponse>(API_URL + id);
   }
 
   uploadCaff(myForm: FormGroup) {

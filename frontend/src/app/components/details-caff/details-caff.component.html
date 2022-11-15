@@ -1,1 +1,53 @@
-<p>details-caff works!</p>
+<div class="mt-2">
+  <h2 class="mb-3">CAFF Details</h2>
+  <div class="rounded-3 text-bg-dark p-2">
+    <div class="row p-2">
+      <div class="col-md-4">
+        <img src="https://cdn.pixabay.com/photo/2022/11/01/05/18/coffee-7561288_960_720.jpg"
+             class="img-fluid rounded" alt="...">
+        <button class="btn btn-light btn-block w-100 mt-3" type="submit" (click)="downloadCAFF()">Download CAFF</button>
+      </div>
+      <div class="col-md-3">
+        <h5>Name</h5>
+        <p>{{caff.name}}</p>
+        <h5>Uploader</h5>
+        <p>{{caff.uploader}}</p>
+        <h5>Description</h5>
+        <p>{{caff.description}}</p>
+      </div>
+      <div class="col-md-5 right">
+        <div>
+          <h5>Comments</h5>
+          <app-comment></app-comment>
+        </div>
+        <form
+          name="form"
+          (ngSubmit)="onSubmit()"
+          #f="ngForm"
+          novalidate
+          class="d-flex justify-content-between align-items-end mt-3"
+        >
+          <div class="form-group w-100 me-3">
+              <textarea
+                rows="3"
+                id="comment"
+                type="text"
+                class="form-control"
+                name="comment"
+                [(ngModel)]="form.comment"
+                required
+                #comment="ngModel"
+              ></textarea>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-light btn-block">
+              Add comment
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+
+</div>
