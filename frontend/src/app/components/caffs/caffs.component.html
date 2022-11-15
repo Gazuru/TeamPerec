@@ -34,9 +34,6 @@
     </div>
   </form>
   <div class="caffs-container">
-    <app-caff-card></app-caff-card>
-    <app-caff-card></app-caff-card>
-    <app-caff-card></app-caff-card>
-    <app-caff-card></app-caff-card>
+    <app-caff-card *ngFor="let caff of caffs" [caff]="caff" ></app-caff-card>
   </div>
 </div>
