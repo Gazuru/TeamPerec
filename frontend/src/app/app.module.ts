@@ -17,6 +17,8 @@ import {DetailsProfileComponent} from './components/details-profile/details-prof
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {CaffCardComponent} from './components/caff-card/caff-card.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { CaffCardMinimalComponent } from './components/caff-card-minimal/caff-card-minimal.component';
+import { DownloadedCaffCardComponent } from './components/downloaded-caff-card/downloaded-caff-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { CommentComponent } from './components/comment/comment.component';
     DetailsProfileComponent,
     EditProfileComponent,
     CaffCardComponent,
-    CommentComponent
+    CommentComponent,
+    CaffCardMinimalComponent,
+    DownloadedCaffCardComponent
   ],
   imports: [
     BrowserModule,
