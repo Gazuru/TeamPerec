@@ -8,10 +8,12 @@ import {Component, Input, OnInit} from '@angular/core';
 export class CaffCardComponent implements OnInit {
   @Input() caff: any;
 
+
   constructor() {
   }
 
   ngOnInit(): void {
+
   }
 
 }
