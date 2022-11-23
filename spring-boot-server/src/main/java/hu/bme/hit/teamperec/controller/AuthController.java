@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.validation.Valid;
 
 import hu.bme.hit.teamperec.data.dto.LoginRequest;
 import hu.bme.hit.teamperec.data.dto.SignupRequest;
@@ -17,6 +16,7 @@ import hu.bme.hit.teamperec.data.response.JwtResponse;
 import hu.bme.hit.teamperec.data.response.MessageResponse;
 import hu.bme.hit.teamperec.security.jwt.JwtUtils;
 import hu.bme.hit.teamperec.security.services.UserDetailsImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
