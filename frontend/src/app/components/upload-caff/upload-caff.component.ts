@@ -43,8 +43,6 @@ export class UploadCaffComponent implements OnInit {
     //this.caffService.uploadCaff(this.myForm);
   }
 
-  public uploadResult?: any;
-
   async uploadFile(fileInput: any) {
     let files: File[] = fileInput.files;
     if (files.length < 1) {
@@ -54,7 +52,8 @@ export class UploadCaffComponent implements OnInit {
     let file = files[0];
     try {
 
-      this.caffService.uploadCaff(file,this.myForm);
+      //this.caffService.uploadCaff(file,this.myForm);
+      this.caffService.testUpload(file,this.myForm);
 
     } catch (error) {
 

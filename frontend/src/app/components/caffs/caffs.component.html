@@ -3,7 +3,7 @@
   <form
     class="search-form mb-3 mt-3"
     name="form"
-    (ngSubmit)="onSubmit()"
+    (ngSubmit)="searchCaffs()"
     #f="ngForm"
     novalidate
   >
@@ -25,7 +25,7 @@
         type="text"
         class="form-control"
         name="uploader"
-        [(ngModel)]="form.uploader"
+        [(ngModel)]="form.uploaderName"
         #uploader="ngModel"
       />
     </div>

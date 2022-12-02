@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -29,7 +28,7 @@ public class CAFFController {
     // CAFF functionality
 
     @GetMapping("/list")
-    public ResponseEntity<List<CAFFResponse>> getCaffs(@RequestParam(required = false) String uploader,
+    public ResponseEntity<List<CAFFResponse>> getCaffs(@RequestParam(required = false) String uploaderName,
                                                        @RequestParam(required = false) String name) {
         return new ResponseEntity<>(caffService.getCaffs(), HttpStatus.OK);
     }
@@ -40,9 +39,8 @@ public class CAFFController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<CAFFResponse> uploadCaff(@RequestParam("file") MultipartFile caffDto) {
-        int a=21;
-        return new ResponseEntity<>(caffService.uploadCaff(new CAFFDto("123","123","asdasd")), HttpStatus.CREATED);
+    public ResponseEntity<CAFFResponse> uploadCaff(@RequestBody CAFFDto caffDto) {
+        return new ResponseEntity<>(caffService.uploadCaff(caffDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/{caffId}")

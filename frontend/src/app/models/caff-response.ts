@@ -3,6 +3,7 @@ export interface CaffResponse {
   name: string;
   description: string;
   comments: any;
-  image: any;
+  imagePreviewBase64: any;
   uploader: any;
+  uploaderName:string;
 }

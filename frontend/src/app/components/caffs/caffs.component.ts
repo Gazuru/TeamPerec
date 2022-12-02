@@ -9,8 +9,8 @@ import {CaffResponse} from "../../models/caff-response";
 })
 export class CaffsComponent implements OnInit {
   form: any = {
-    name: null,
-    uploader: null
+    name: "",
+    uploaderName: ""
   };
 
   caffs: CaffResponse[] = [];
@@ -22,8 +22,12 @@ export class CaffsComponent implements OnInit {
     this.getCaffsList();
   }
 
-  onSubmit() {
-    return false;
+  searchCaffs() {
+    this.caffService.getCaffsListSearch(this.form.uploaderName,this.form.name).subscribe(
+      data => {
+        this.caffs = data;
+      }
+    )
   }
 
   getCaffsList() {
