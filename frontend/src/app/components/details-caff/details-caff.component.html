@@ -2,10 +2,12 @@
   <h2 class="mb-3">CAFF Details</h2>
   <div class="rounded-3 text-bg-dark p-2">
     <div class="row p-2">
-      <div class="col-md-4">
-        <img src="https://cdn.pixabay.com/photo/2022/11/01/05/18/coffee-7561288_960_720.jpg"
-             class="img-fluid rounded" alt="...">
-        <button class="btn btn-light btn-block w-100 mt-3" type="submit" (click)="downloadCAFF()">Download CAFF</button>
+      <div class="col-md-4 d-flex align-items-center">
+        <div>
+          <img [src]="previewGifImage" class="img-fluid rounded" alt="...">
+          <button class="btn btn-light btn-block w-100 mt-3" type="submit" (click)="downloadCAFF()">Download CAFF
+          </button>
+        </div>
       </div>
       <div class="col-md-3">
         <h5>Name</h5>

@@ -1,10 +1,9 @@
-<div class="card text-bg-dark mb-3" style="max-width: 380px;">
+<div class="card text-bg-dark mb-3" style="max-width: 380px;width:380px;">
   <div class="row g-0 p-2">
-    <div class="col-md-5">
-      <img src="https://cdn.pixabay.com/photo/2022/11/01/05/18/coffee-7561288_960_720.jpg"
-           class="img-fluid rounded" alt="...">
+    <div class="col-md-6 d-flex align-items-center">
+      <img [src]="previewGifImage" class="img-fluid rounded" alt="...">
     </div>
-    <div class="col-md-7 d-flex flex-row align-content-between justify-content-end flex-wrap">
+    <div class="col-md-6 d-flex flex-row align-content-between justify-content-end flex-wrap">
       <div class="card-body text-end">
         <h5 class="card-title">Name</h5>
         <p class="card-text text-truncate">{{ caff.name }}</p>
