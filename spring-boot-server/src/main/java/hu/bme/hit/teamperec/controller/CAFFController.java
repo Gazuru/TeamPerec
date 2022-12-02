@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import hu.bme.hit.teamperec.data.dto.CAFFDto;
 import hu.bme.hit.teamperec.data.dto.CommentDto;
+import hu.bme.hit.teamperec.data.response.CAFFDownloadResponse;
 import hu.bme.hit.teamperec.data.response.CAFFResponse;
 import hu.bme.hit.teamperec.data.response.CommentResponse;
 import hu.bme.hit.teamperec.service.CAFFService;
@@ -54,7 +55,7 @@ public class CAFFController {
     }
 
     @GetMapping("/{caffId}/download")
-    public ResponseEntity<CAFFResponse> downloadCaff(@PathVariable UUID caffId) {
+    public ResponseEntity<CAFFDownloadResponse> downloadCaff(@PathVariable UUID caffId) {
         return new ResponseEntity<>(caffService.downloadCaff(caffId), HttpStatus.OK);
     }
 

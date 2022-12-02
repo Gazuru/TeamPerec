@@ -24,7 +24,9 @@ public class CAFF extends BaseEntity {
     private User uploader;
 
     //@Lob
-    private String image;
+    private String caffEncodedString;
+
+    private String gifEncodedString;
 
     @OneToMany(mappedBy = "caff")
     private Set<Comment> comments = new HashSet<>();

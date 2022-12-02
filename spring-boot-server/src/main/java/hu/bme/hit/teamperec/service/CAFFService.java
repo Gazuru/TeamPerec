@@ -1,11 +1,16 @@
 package hu.bme.hit.teamperec.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.*;
 
 import hu.bme.hit.teamperec.data.ComputerSecurityException;
 import hu.bme.hit.teamperec.data.dto.CAFFDto;
 import hu.bme.hit.teamperec.data.entity.CAFF;
 import hu.bme.hit.teamperec.data.repository.CAFFRepository;
+import hu.bme.hit.teamperec.data.response.CAFFDownloadResponse;
 import hu.bme.hit.teamperec.data.response.CAFFResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Lazy;
@@ -83,7 +88,8 @@ public class CAFFService {
             caff.setDescription(caffDto.description());
         }
         if (Objects.nonNull(image)) {
-            caff.setImage(caffDto.imageBase64());
+            caff.setCaffEncodedString(image);
+            caff.setGifEncodedString(parseCaffContents(image));
         }
 
         return caff;
@@ -94,7 +100,7 @@ public class CAFFService {
                 caff.getName(),
                 caff.getDescription(),
                 caff.getComments().stream().map(commentService::toResponse).toList(),
-                caff.getImage(),
+                caff.getGifEncodedString(),
                 caff.getUploader().getId(),
                 caff.getUploader().getUsername());
     }
@@ -114,13 +120,47 @@ public class CAFFService {
                 () -> new ComputerSecurityException("CAFF not found by id: " + caffId));
     }
 
-    public CAFFResponse downloadCaff(UUID caffId) {
-        // TODO downloading implementation
-        return null;
+    public CAFFDownloadResponse downloadCaff(UUID caffId) {
+        var caff = getCaffById(caffId);
+
+        return new CAFFDownloadResponse(caff.getGifEncodedString());
     }
 
     public CAFFResponse updateCaff(UUID caffId, CAFFDto caffDto) {
         var caff = toCaffFromDto(getCaffById(caffId), caffDto);
         return toResponse(caffRepository.save(caff));
     }
+
+    private String parseCaffContents(String base64encodedString) {
+        try {
+            String parser = "../native/caff_parser.exe";
+            String md5 = "?????";
+
+            var caffByteArray = Base64.getDecoder().decode(base64encodedString);
+
+            Files.write(Paths.get("temp"), caffByteArray);
+            String[] exec = {parser, "./temp", "generated_caff"};
+
+            return executeCommand(exec);
+        } catch (IOException | InterruptedException | ParseException e) {
+            throw new ComputerSecurityException(e.getMessage());
+        }
+    }
+
+    private String executeCommand(String[] command) throws IOException, InterruptedException, ParseException {
+        Process process = new ProcessBuilder(command).start();
+
+        Scanner error = new Scanner(process.getErrorStream());
+        StringBuilder errorMessage = new StringBuilder();
+        while (error.hasNextLine()) {
+            errorMessage.append(error.nextLine());
+        }
+        process.waitFor();
+        if (process.exitValue() == 0) {
+            return Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("generated_caff.gif")));
+        } else {
+            throw new ParseException(errorMessage.toString(), 0);
+        }
+    }
+
 }
