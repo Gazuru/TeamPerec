@@ -1,6 +1,6 @@
 <div class="mt-2">
   <h2 class="mb-3">Upload CAFF</h2>
-  <form [formGroup]="myForm" (ngSubmit)="submit()">
+  <form [formGroup]="myForm">
     <div class="rounded-3 text-bg-dark p-2">
       <div class="row p-2">
         <div class="col-md-5 left">
@@ -8,11 +8,12 @@
           <div class="form-group">
             <label for="file">File</label>
             <input
+              #fileInput
               formControlName="file"
               id="file"
               type="file"
               class="form-control"
-              (change)="onFileChange($event)">
+              [multiple]="false">
             <div *ngIf="f['file'].touched && f['file'].invalid" class="alert alert-danger">
               <div *ngIf="f['file'].errors && f['file'].errors['required']">File is required.</div>
               <div *ngIf="f['file'].errors && f['file'].errors['pattern']">File should be of extensions: .caff, .CAFF,
@@ -22,7 +23,8 @@
           </div>
 
           <div class="form-group submit-container mt-2">
-            <button class="btn btn-light btn-block w-100" [disabled]="myForm.invalid" type="submit">Upload CAFF</button>
+            <button class="btn btn-light btn-block w-100" type="button"
+                    (click)="uploadFile(fileInput)">Upload CAFF</button>
           </div>
         </div>
         <div class="col-md-7">

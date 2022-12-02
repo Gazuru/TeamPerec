@@ -30,17 +30,38 @@ export class UploadCaffComponent implements OnInit {
     return this.myForm.controls;
   }
 
-  onFileChange(event: any) {
-
+  /*onFileChange(event: any) {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.myForm.patchValue({
         fileSource: file
       });
     }
-  }
+  }*/
 
   submit() {
-    this.caffService.uploadCaff(this.myForm);
+    //this.caffService.uploadCaff(this.myForm);
   }
+
+  public uploadResult?: any;
+
+  async uploadFile(fileInput: any) {
+    let files: File[] = fileInput.files;
+    if (files.length < 1) {
+      return;
+    }
+
+    let file = files[0];
+    try {
+
+      this.caffService.uploadCaff(file,this.myForm);
+
+    } catch (error) {
+
+      console.warn("File upload failed.");
+      console.error(error);
+
+    }
+  }
+
 }
