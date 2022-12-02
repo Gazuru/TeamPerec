@@ -50,9 +50,7 @@ export class UploadCaffComponent implements OnInit {
     let file = files[0];
     try {
 
-      //this.caffService.uploadCaff(file,this.myForm);
       this.caffService.testUpload(file, this.myForm);
-      //this.router.navigate(["/my-caffs"]);
     } catch (error) {
 
       console.warn("File upload failed.");

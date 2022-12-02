@@ -5,29 +5,26 @@
       <div class="col-md-4 left-container">
         <div>
           <h5>Name</h5>
-          <p>xdddd</p>
+          <p>{{profile.name}}</p>
           <h5>Email</h5>
-          <p>asdf@asd.ca</p>
+          <p>{{profile.email}}</p>
         </div>
         <div class="d-flex">
-          <button class="btn btn-light btn-block w-100 search-button me-md-3">Edit</button>
-          <button class="btn btn-danger btn-block w-100 search-button ms-md-3">Delete</button>
+          <button *ngIf="showDeleteButton" class="btn btn-light btn-block w-100 search-button me-md-3"
+                  [routerLink]="['/edit-profile',this.id]">Edit
+          </button>
+          <button *ngIf="showDeleteButton" class="btn btn-danger btn-block w-100 search-button ms-md-3"
+                  (click)="deleteProfile()">Delete
+          </button>
         </div>
       </div>
       <div class="col-md-4">
         <h5>Caffs</h5>
-        <app-caff-card-minimal></app-caff-card-minimal>
-        <app-caff-card-minimal></app-caff-card-minimal>
-        <app-caff-card-minimal></app-caff-card-minimal>
-        <app-caff-card-minimal></app-caff-card-minimal>
-        <app-caff-card-minimal></app-caff-card-minimal>
-        <app-caff-card-minimal></app-caff-card-minimal>
-        <app-caff-card-minimal></app-caff-card-minimal>
+        <app-caff-card-minimal *ngFor="let caff of caffs" [caff]="caff"></app-caff-card-minimal>
       </div>
       <div class="col-md-4">
         <h5>Downloads</h5>
-        <app-downloaded-caff-card></app-downloaded-caff-card>
-        <app-downloaded-caff-card></app-downloaded-caff-card>
+        <app-downloaded-caff-card  *ngFor="let download of downloads" [download]="download"></app-downloaded-caff-card>
       </div>
 
     </div>

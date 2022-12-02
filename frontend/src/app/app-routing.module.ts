@@ -9,16 +9,18 @@ import {UploadCaffComponent} from "./components/upload-caff/upload-caff.componen
 import {DetailsCaffComponent} from "./components/details-caff/details-caff.component";
 import {DetailsProfileComponent} from "./components/details-profile/details-profile.component";
 import {AuthUserGuard} from "./guards/auth-user.guard";
+import {EditProfileComponent} from "./components/edit-profile/edit-profile.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent},
-  {path: 'caffs', component: CaffsComponent,canActivate:[AuthUserGuard]},
+  {path: 'caffs', component: CaffsComponent, canActivate: [AuthUserGuard]},
   {path: 'my-caffs', component: MyCaffsComponent},
   {path: 'upload-caff', component: UploadCaffComponent},
-  { path: 'details-caff/:id', component: DetailsCaffComponent },
-  { path: 'details-profile/:id', component: DetailsProfileComponent },
+  {path: 'details-caff/:id', component: DetailsCaffComponent},
+  {path: 'details-profile/:id', component: DetailsProfileComponent},
+  {path: 'edit-profile/:id', component: EditProfileComponent},
   {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
 

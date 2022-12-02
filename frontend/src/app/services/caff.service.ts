@@ -6,6 +6,7 @@ import {CaffResponse} from "../models/caff-response";
 import {TokenStorageService} from "./token-storage.service";
 import {CaffRequest} from "../models/caff-request";
 import {Router} from "@angular/router";
+import {CaffDownloadResponse} from "../models/caff-download-response";
 
 const API_URL = 'http://localhost:8080/api/caff/';
 
@@ -106,5 +107,23 @@ export class CaffService {
 
     });
   }
+
+  downloadFile(id: string) {
+
+    const endpoint = API_URL + id + "/download";
+    this.http.get<CaffDownloadResponse>(endpoint).subscribe(data => {
+      let caffBinary = atob(data.caffBase64);
+      let enc = new TextEncoder();
+      let myBlob = new Blob([new Uint8Array(enc.encode(caffBinary))]);
+      let file = new File([myBlob], "caff_download.caff", {
+        type: "application/caff",
+        lastModified: new Date().getTime()
+      })
+      let link = document.createElement('a');
+      link.href = window.URL.createObjectURL(file);
+      link.click();
+    });
+  }
+
 
 }

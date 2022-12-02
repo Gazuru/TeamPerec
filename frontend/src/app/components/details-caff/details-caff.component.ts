@@ -61,6 +61,7 @@ export class DetailsCaffComponent implements OnInit {
   }
 
   downloadCAFF() {
+    this.caffService.downloadFile(this.caff.id);
   }
 
   addComment() {

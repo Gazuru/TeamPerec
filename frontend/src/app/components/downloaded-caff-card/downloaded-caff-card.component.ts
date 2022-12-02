@@ -6,9 +6,10 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./downloaded-caff-card.component.css']
 })
 export class DownloadedCaffCardComponent implements OnInit {
-  @Input() downloadedCaff: any;
+  @Input() download: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
