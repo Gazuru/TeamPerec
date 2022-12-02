@@ -134,7 +134,14 @@ public class CAFFService {
 
     private String parseCaffContents(String base64encodedString) {
         try {
-            var path = "./native/caff_parser.exe";
+            var os = System.getProperty("os.name").toLowerCase();
+            var path = "";
+
+            if (os.contains("win")) {
+                path = "./native/caff_parser.exe";
+            } else {
+                path = "./native/caff_parser";
+            }
             String md5 = "?????";
 
             var caffByteArray = Base64.getDecoder().decode(base64encodedString);
