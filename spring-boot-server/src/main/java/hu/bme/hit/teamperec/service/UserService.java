@@ -6,7 +6,10 @@ import java.util.UUID;
 import hu.bme.hit.teamperec.config.security.services.UserDetailsImpl;
 import hu.bme.hit.teamperec.data.ComputerSecurityException;
 import hu.bme.hit.teamperec.data.dto.UserDto;
+import hu.bme.hit.teamperec.data.entity.CAFF;
+import hu.bme.hit.teamperec.data.entity.Download;
 import hu.bme.hit.teamperec.data.entity.User;
+import hu.bme.hit.teamperec.data.repository.DownloadRepository;
 import hu.bme.hit.teamperec.data.repository.UserRepository;
 import hu.bme.hit.teamperec.data.response.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,13 +21,15 @@ import org.springframework.stereotype.Service;
 public class UserService {
     private final UserRepository userRepository;
 
-    private User getUserById(UUID id) {
+    private final DownloadRepository downloadRepository;
+
+    public User getUserById(UUID id) {
         return userRepository.findById(id).orElseThrow(
                 () -> new ComputerSecurityException("User not found by id: " + id));
     }
 
     public UserResponse getUser(UUID id) {
-        return toResponse(getUserById(id));
+        return getUserById(id).toResponse();
     }
 
     public User getUserByUsername(String username) {
@@ -33,7 +38,7 @@ public class UserService {
     }
 
     public List<UserResponse> getUsers() {
-        return userRepository.findAll().stream().map(this::toResponse).toList();
+        return userRepository.findAll().stream().map(User::toResponse).toList();
     }
 
     public UserResponse updateUser(UUID userId, UserDto userDto) {
@@ -43,11 +48,7 @@ public class UserService {
         user.setEmail(userDto.email());
         user.setPassword(userDto.password());
 
-        return toResponse(userRepository.save(user));
-    }
-
-    private UserResponse toResponse(User user) {
-        return new UserResponse(user.getUsername(), user.getEmail());
+        return userRepository.save(user).toResponse();
     }
 
     public void deleteUser(UUID userId) {
@@ -56,5 +57,14 @@ public class UserService {
         if (userRepository.existsById(userId) && !getUserById(userId).getId().equals(currentUserId)) {
             userRepository.deleteById(userId);
         }
+    }
+
+    public void addDownload(User user, CAFF caff) {
+        var download = new Download();
+        download.setDownloader(user);
+        download.setDownloadedCaff(caff);
+        download = downloadRepository.save(download);
+        user.getDownloads().add(download);
+        userRepository.save(user);
     }
 }

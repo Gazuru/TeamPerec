@@ -3,6 +3,7 @@ package hu.bme.hit.teamperec.data.entity;
 import java.util.Date;
 import javax.persistence.*;
 
+import hu.bme.hit.teamperec.data.response.CommentResponse;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -25,5 +26,12 @@ public class Comment extends BaseEntity {
 
     @CreatedDate
     private Date createdAt;
+
+    public CommentResponse toResponse() {
+        return new CommentResponse(this.getId(),
+                this.getCommenter().getUsername(),
+                this.getCommentText(),
+                this.getCreatedAt().toString());
+    }
 
 }

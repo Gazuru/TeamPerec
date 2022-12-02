@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 
+import hu.bme.hit.teamperec.data.response.CAFFResponse;
+import hu.bme.hit.teamperec.data.response.CAFFUserResponse;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -35,5 +37,19 @@ public class CAFF extends BaseEntity {
 
     @CreatedDate
     private Date uploadedAt;
+
+    public CAFFResponse toResponse() {
+        return new CAFFResponse(this.getId(),
+                this.getName(),
+                this.getDescription(),
+                this.getComments().stream().map(Comment::toResponse).toList(),
+                this.getGifEncodedString(),
+                this.getUploader().getId(),
+                this.getUploader().getUsername());
+    }
+
+    public CAFFUserResponse toUserResponse() {
+        return new CAFFUserResponse(this.getId(), this.getName());
+    }
 
 }

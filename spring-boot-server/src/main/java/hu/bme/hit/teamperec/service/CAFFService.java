@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+import hu.bme.hit.teamperec.config.security.services.UserDetailsImpl;
 import hu.bme.hit.teamperec.data.ComputerSecurityException;
 import hu.bme.hit.teamperec.data.dto.CAFFDto;
 import hu.bme.hit.teamperec.data.entity.CAFF;
@@ -13,7 +14,6 @@ import hu.bme.hit.teamperec.data.response.CAFFDownloadResponse;
 import hu.bme.hit.teamperec.data.response.CAFFResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -28,15 +28,12 @@ public class CAFFService {
 
     private final UserService userService;
 
-    @Lazy
-    private final CommentService commentService;
-
     public List<CAFFResponse> getCaffs(String uploaderName, String name) {
         Set<CAFF> uploaderResults = null;
         Set<CAFF> nameResults = null;
 
         if (!StringUtils.hasText(uploaderName) && !StringUtils.hasText(name)) {
-            return caffRepository.findAll().stream().map(this::toResponse).toList();
+            return caffRepository.findAll().stream().map(CAFF::toResponse).toList();
         }
 
         if (StringUtils.hasText(uploaderName)) {
@@ -47,7 +44,7 @@ public class CAFFService {
             nameResults = new HashSet<>(caffRepository.findAllByNameContainsIgnoreCaseOrderByUploadedAtDesc(name));
         }
 
-        return getOneOrIntersection(uploaderResults, nameResults).stream().map(this::toResponse).toList();
+        return getOneOrIntersection(uploaderResults, nameResults).stream().map(CAFF::toResponse).toList();
     }
 
     private Set<CAFF> getOneOrIntersection(Set<CAFF> first, Set<CAFF> second) {
@@ -64,12 +61,12 @@ public class CAFFService {
     }
 
     public List<CAFFResponse> getCaffsOfUser(UUID uploaderId) {
-        return caffRepository.findAllByUploaderIdOrderByUploadedAtDesc(uploaderId).stream().map(this::toResponse).toList();
+        return caffRepository.findAllByUploaderIdOrderByUploadedAtDesc(uploaderId).stream().map(CAFF::toResponse).toList();
     }
 
     public CAFFResponse uploadCaff(CAFFDto caffDto) {
         var caff = toCaffFromDto(new CAFF(), caffDto);
-        return toResponse(caffRepository.save(caff));
+        return caffRepository.save(caff).toResponse();
     }
 
     private CAFF toCaffFromDto(CAFF caff, CAFFDto caffDto) {
@@ -96,16 +93,6 @@ public class CAFFService {
         return caff;
     }
 
-    private CAFFResponse toResponse(CAFF caff) {
-        return new CAFFResponse(caff.getId(),
-                caff.getName(),
-                caff.getDescription(),
-                caff.getComments().stream().map(commentService::toResponse).toList(),
-                caff.getGifEncodedString(),
-                caff.getUploader().getId(),
-                caff.getUploader().getUsername());
-    }
-
     public void deleteCaff(UUID caffId) {
         if (caffRepository.existsById(caffId)) {
             caffRepository.deleteById(caffId);
@@ -113,7 +100,7 @@ public class CAFFService {
     }
 
     public CAFFResponse getCaff(UUID caffId) {
-        return toResponse(getCaffById(caffId));
+        return getCaffById(caffId).toResponse();
     }
 
     public CAFF getCaffById(UUID caffId) {
@@ -123,13 +110,16 @@ public class CAFFService {
 
     public CAFFDownloadResponse downloadCaff(UUID caffId) {
         var caff = getCaffById(caffId);
+        var user =
+                userService.getUserById(((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId());
+        userService.addDownload(user, caff);
 
-        return new CAFFDownloadResponse(caff.getGifEncodedString());
+        return new CAFFDownloadResponse(caff.getCaffEncodedString());
     }
 
     public CAFFResponse updateCaff(UUID caffId, CAFFDto caffDto) {
         var caff = toCaffFromDto(getCaffById(caffId), caffDto);
-        return toResponse(caffRepository.save(caff));
+        return caffRepository.save(caff).toResponse();
     }
 
     private String parseCaffContents(String base64encodedString) {

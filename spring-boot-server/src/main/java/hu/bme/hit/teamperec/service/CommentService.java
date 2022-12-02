@@ -29,17 +29,12 @@ public class CommentService {
         comment.setCaff(caff);
         comment.setCommenter(user);
 
-        return toResponse(commentRepository.save(comment));
+        return commentRepository.save(comment).toResponse();
     }
 
     public void deleteComment(UUID commentId) {
         if (commentRepository.existsById(commentId)) {
             commentRepository.deleteById(commentId);
         }
-    }
-
-    public CommentResponse toResponse(Comment comment) {
-        return new CommentResponse(comment.getId(), comment.getCommenter().getUsername(), comment.getCommentText(),
-                comment.getCreatedAt().toString());
     }
 }
