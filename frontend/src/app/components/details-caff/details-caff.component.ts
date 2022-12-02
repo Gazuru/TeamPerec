@@ -4,6 +4,7 @@ import {CaffService} from "../../services/caff.service";
 import {CaffResponse} from "../../models/caff-response";
 import {CommentService} from "../../services/comment.service";
 import {CommentResponse} from "../../models/comment-response";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-details-caff',
@@ -15,9 +16,11 @@ export class DetailsCaffComponent implements OnInit {
   comments: CommentResponse[];
   id: string = "";
 
-  form: any = {
-    comment: null
-  };
+  myForm = new FormGroup({
+    commentText: new FormControl('', [Validators.required, Validators.minLength(1)])
+  });
+
+
 
   private sub: any;
 
@@ -33,7 +36,10 @@ export class DetailsCaffComponent implements OnInit {
       this.id = params['id'];
     });
     this.getCaff();
-    this.getComments();
+  }
+
+  get f() {
+    return this.myForm.controls;
   }
 
   getCaff() {
@@ -41,15 +47,9 @@ export class DetailsCaffComponent implements OnInit {
       data => {
         console.log(data);
         this.caff = data;
-      }
-    );
-  }
-
-  getComments() {
-    this.commentService.getComments(this.id).subscribe(
-      data => {
-        console.log(data);
-        this.comments = data;
+      },null,()=>{
+        this.comments=this.caff.comments;
+        console.log(this.comments);
       }
     );
   }
@@ -57,7 +57,9 @@ export class DetailsCaffComponent implements OnInit {
   downloadCAFF() {
   }
 
-  onSubmit() {
-
+  addComment() {
+    this.commentService.postComment(this.myForm,this.caff.id);
+    window.location.reload();
   }
+
 }

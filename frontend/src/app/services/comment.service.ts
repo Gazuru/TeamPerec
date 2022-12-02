@@ -3,6 +3,9 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CaffResponse} from "../models/caff-response";
 import {CommentResponse} from "../models/comment-response";
+import { FormGroup } from '@angular/forms';
+import {CommentRequest} from "../models/comment-request";
+import {Router} from "@angular/router";
 
 const API_URL = 'http://localhost:8080/api/';
 
@@ -11,10 +14,19 @@ const API_URL = 'http://localhost:8080/api/';
 })
 export class CommentService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router:Router) { }
 
-  getComments(caffId:string): Observable<CommentResponse[]> {
-    return this.http.get<CaffResponse[]>(API_URL + 'caff/'+caffId+"/comment");
+  postComment(form: FormGroup,caffId:string) {
+    const request: CommentRequest = {
+      commentText: form.get('commentText')?.value
+    };
+
+    this.http.post<CommentResponse>(API_URL + "caff/"+caffId+"/comment", request)
+      .subscribe();
   }
 
+  deleteComment(commentId:string){
+    this.http.delete(API_URL + "comment/" + commentId)
+      .subscribe();
+  }
 }

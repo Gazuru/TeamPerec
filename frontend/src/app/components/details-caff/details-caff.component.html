@@ -9,42 +9,42 @@
       </div>
       <div class="col-md-3">
         <h5>Name</h5>
-        <p>{{caff.name}}</p>
+        <p class="text-break">{{caff.name}}</p>
         <h5>Uploader</h5>
-        <p>{{caff.uploaderName}}</p>
+        <p class="text-break" [routerLink]="['/details-profile',caff.uploader]">{{"asd" + caff.uploaderName}}</p>
         <h5>Description</h5>
-        <p>{{caff.description}}</p>
+        <p class="text-break">{{caff.description}}</p>
       </div>
       <div class="col-md-5 right">
         <div>
           <h5>Comments</h5>
-          <app-comment></app-comment>
+          <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
         </div>
+
+
         <form
+          [formGroup]="myForm"
           name="form"
-          (ngSubmit)="onSubmit()"
-          #f="ngForm"
-          novalidate
+          (ngSubmit)="addComment()"
           class="d-flex justify-content-between align-items-end mt-3"
         >
           <div class="form-group w-100 me-3">
               <textarea
-                rows="3"
-                id="comment"
+                formControlName="commentText"
+                rows="2"
+                id="commentText"
                 type="text"
                 class="form-control"
-                name="comment"
-                [(ngModel)]="form.comment"
-                required
-                #comment="ngModel"
               ></textarea>
           </div>
           <div class="form-group">
-            <button class="btn btn-light btn-block">
+            <button class="btn btn-light btn-block"  [disabled]="myForm.invalid" type="submit">
               Add comment
             </button>
           </div>
         </form>
+
+
 
       </div>
     </div>
