@@ -23,9 +23,11 @@ public class CAFF extends BaseEntity {
     @JoinColumn(name = "uploader_id", nullable = false)
     private User uploader;
 
-    //@Lob
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String caffEncodedString;
-
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String gifEncodedString;
 
     @OneToMany(mappedBy = "caff")

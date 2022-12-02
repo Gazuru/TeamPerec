@@ -3,7 +3,6 @@ package hu.bme.hit.teamperec.service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.util.*;
 
 import hu.bme.hit.teamperec.data.ComputerSecurityException;
@@ -13,6 +12,7 @@ import hu.bme.hit.teamperec.data.repository.CAFFRepository;
 import hu.bme.hit.teamperec.data.response.CAFFDownloadResponse;
 import hu.bme.hit.teamperec.data.response.CAFFResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class CAFFService {
 
     private final CAFFRepository caffRepository;
@@ -133,34 +134,35 @@ public class CAFFService {
 
     private String parseCaffContents(String base64encodedString) {
         try {
-            String parser = "../native/caff_parser.exe";
+            var path = "./native/caff_parser.exe";
             String md5 = "?????";
 
             var caffByteArray = Base64.getDecoder().decode(base64encodedString);
-
             Files.write(Paths.get("temp"), caffByteArray);
-            String[] exec = {parser, "./temp", "generated_caff"};
+
+            String[] exec = {path, "./temp", "generated_caff"};
 
             return executeCommand(exec);
-        } catch (IOException | InterruptedException | ParseException e) {
+        } catch (IOException | InterruptedException e) {
             throw new ComputerSecurityException(e.getMessage());
         }
     }
 
-    private String executeCommand(String[] command) throws IOException, InterruptedException, ParseException {
-        Process process = new ProcessBuilder(command).start();
+    private String executeCommand(String[] command) throws IOException, InterruptedException {
+
+        Process process = new ProcessBuilder().inheritIO().command(command).start();
 
         Scanner error = new Scanner(process.getErrorStream());
+
         StringBuilder errorMessage = new StringBuilder();
         while (error.hasNextLine()) {
             errorMessage.append(error.nextLine());
         }
+
         process.waitFor();
-        if (process.exitValue() == 0) {
-            return Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("generated_caff.gif")));
-        } else {
-            throw new ParseException(errorMessage.toString(), 0);
-        }
+
+        return Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("generated_caff.gif")));
+
     }
 
 }
