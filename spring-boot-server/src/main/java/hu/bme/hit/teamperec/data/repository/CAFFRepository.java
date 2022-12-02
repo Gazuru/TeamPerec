@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CAFFRepository extends JpaRepository<CAFF, UUID> {
     List<CAFF> findAllByUploaderIdOrderByUploadedAtDesc(UUID uploaderId);
 
-    Set<CAFF> findAllByUploaderUsernameOrderByUploadedAtDesc(String username);
+    Set<CAFF> findAllByUploaderUsernameContainsIgnoreCaseOrderByUploadedAtDesc(String username);
 
-    Set<CAFF> findAllByNameOrderByUploadedAtDesc(String name);
+    Set<CAFF> findAllByNameContainsIgnoreCaseOrderByUploadedAtDesc(String name);
 }
