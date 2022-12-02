@@ -7,6 +7,7 @@ public record CAFFResponse(UUID id,
                            String name,
                            String description,
                            List<UUID> comments,
-                           String image,
-                           UUID uploader) {
+                           String imagePreviewBase64,
+                           UUID uploader,
+                           String uploadeName) {
 }

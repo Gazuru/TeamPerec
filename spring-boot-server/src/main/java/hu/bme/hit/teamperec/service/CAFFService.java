@@ -92,7 +92,8 @@ public class CAFFService {
                 caff.getDescription(),
                 caff.getComments().stream().map(Comment::getId).toList(),
                 caff.getImage(),
-                caff.getUploader().getId());
+                caff.getUploader().getId(),
+                caff.getUploader().getUsername());
     }
 
     public void deleteCaff(UUID caffId) {
