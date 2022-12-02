@@ -23,8 +23,8 @@ public class CAFF extends BaseEntity {
     @JoinColumn(name = "uploader_id", nullable = false)
     private User uploader;
 
-    @Lob
-    private byte[] image;
+    //@Lob
+    private String image;
 
     @OneToMany(mappedBy = "caff")
     private Set<Comment> comments = new HashSet<>();

@@ -38,7 +38,7 @@ public class CAFFService {
     private CAFF toCaffFromDto(CAFF caff, CAFFDto caffDto) {
         var name = caffDto.name();
         var description = caffDto.description();
-        var image = caffDto.image();
+        var image = caffDto.imageBase64();
 
         if (Objects.isNull(caff.getUploader())) {
             var username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -52,7 +52,7 @@ public class CAFFService {
             caff.setDescription(caffDto.description());
         }
         if (Objects.nonNull(image)) {
-            caff.setImage(caffDto.image());
+            caff.setImage(caffDto.imageBase64());
         }
 
         return caff;
