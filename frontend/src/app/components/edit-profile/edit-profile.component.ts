@@ -11,7 +11,8 @@ import {ProfileResponse} from "../../models/profile-response";
 })
 export class EditProfileComponent implements OnInit {
   profile: ProfileResponse = {
-    name: "asd",
+    id: "",
+    name: "",
     email: "",
     downloads: [],
     caffs: []

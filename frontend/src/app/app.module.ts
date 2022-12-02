@@ -5,7 +5,6 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
-import {ProfileComponent} from './components/profile/profile.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import {authInterceptorProviders} from "./helpers/auth.interceptor";
@@ -16,16 +15,16 @@ import {DetailsCaffComponent} from './components/details-caff/details-caff.compo
 import {DetailsProfileComponent} from './components/details-profile/details-profile.component';
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
 import {CaffCardComponent} from './components/caff-card/caff-card.component';
-import { CommentComponent } from './components/comment/comment.component';
-import { CaffCardMinimalComponent } from './components/caff-card-minimal/caff-card-minimal.component';
-import { DownloadedCaffCardComponent } from './components/downloaded-caff-card/downloaded-caff-card.component';
+import {CommentComponent} from './components/comment/comment.component';
+import {CaffCardMinimalComponent} from './components/caff-card-minimal/caff-card-minimal.component';
+import {DownloadedCaffCardComponent} from './components/downloaded-caff-card/downloaded-caff-card.component';
+import {ProfilesComponent} from './components/profiles/profiles.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
     CaffsComponent,
     MyCaffsComponent,
     UploadCaffComponent,
@@ -35,7 +34,8 @@ import { DownloadedCaffCardComponent } from './components/downloaded-caff-card/d
     CaffCardComponent,
     CommentComponent,
     CaffCardMinimalComponent,
-    DownloadedCaffCardComponent
+    DownloadedCaffCardComponent,
+    ProfilesComponent
   ],
   imports: [
     BrowserModule,

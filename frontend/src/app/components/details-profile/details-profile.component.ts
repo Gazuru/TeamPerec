@@ -13,9 +13,10 @@ import {ProfileResponse} from "../../models/profile-response";
 })
 export class DetailsProfileComponent implements OnInit {
   profile: ProfileResponse = {
+    id: "",
     name: "",
     email: "",
-    downloads:[],
+    downloads: [],
     caffs: []
   };
   caffs: ProfileCaffResponse[] = [];

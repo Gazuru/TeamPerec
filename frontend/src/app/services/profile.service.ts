@@ -16,7 +16,9 @@ export class ProfileService {
 
   constructor(private http: HttpClient, private router: Router) {
   }
-
+  getProfiles(): Observable<ProfileResponse[]> {
+    return this.http.get<ProfileResponse[]>(API_URL + "list");
+  }
   getProfile(id: string): Observable<ProfileResponse> {
     return this.http.get<ProfileResponse>(API_URL + id);
   }
