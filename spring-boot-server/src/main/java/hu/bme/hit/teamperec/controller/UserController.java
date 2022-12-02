@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PatchMapping("{userId}")
+    @PutMapping("{userId}")
     public ResponseEntity<User> updateUser(@PathVariable UUID userId, @RequestBody UserDto userDto) {
         return new ResponseEntity<>(userService.updateUser(userId, userDto), HttpStatus.OK);
     }
