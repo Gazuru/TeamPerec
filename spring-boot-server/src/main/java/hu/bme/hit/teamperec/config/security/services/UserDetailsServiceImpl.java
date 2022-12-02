@@ -1,4 +1,4 @@
-package hu.bme.hit.teamperec.security.services;
+package hu.bme.hit.teamperec.config.security.services;
 
 import hu.bme.hit.teamperec.data.entity.User;
 import hu.bme.hit.teamperec.data.repository.UserRepository;

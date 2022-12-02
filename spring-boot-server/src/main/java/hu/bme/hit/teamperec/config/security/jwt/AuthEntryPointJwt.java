@@ -1,4 +1,4 @@
-package hu.bme.hit.teamperec.security.jwt;
+package hu.bme.hit.teamperec.config.security.jwt;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;

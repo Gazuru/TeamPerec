@@ -1,10 +1,10 @@
-package hu.bme.hit.teamperec.security.jwt;
+package hu.bme.hit.teamperec.config.security.jwt;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import javax.crypto.SecretKey;
 
-import hu.bme.hit.teamperec.security.services.UserDetailsImpl;
+import hu.bme.hit.teamperec.config.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
