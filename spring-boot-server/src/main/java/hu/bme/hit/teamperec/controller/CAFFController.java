@@ -30,7 +30,7 @@ public class CAFFController {
     @GetMapping("/list")
     public ResponseEntity<List<CAFFResponse>> getCaffs(@RequestParam(required = false) String uploaderName,
                                                        @RequestParam(required = false) String name) {
-        return new ResponseEntity<>(caffService.getCaffs(), HttpStatus.OK);
+        return new ResponseEntity<>(caffService.getCaffs(uploaderName, name), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/caffs")
@@ -48,7 +48,7 @@ public class CAFFController {
         return new ResponseEntity<>(caffService.getCaff(caffId), HttpStatus.OK);
     }
 
-    @PatchMapping("/{caffId}")
+    @PutMapping("/{caffId}")
     public ResponseEntity<CAFFResponse> updateCaff(@PathVariable UUID caffId, @RequestBody CAFFDto caffDto) {
         return new ResponseEntity<>(caffService.updateCaff(caffId, caffDto), HttpStatus.OK);
     }

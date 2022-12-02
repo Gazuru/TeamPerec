@@ -1,8 +1,6 @@
 package hu.bme.hit.teamperec.service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import hu.bme.hit.teamperec.data.ComputerSecurityException;
 import hu.bme.hit.teamperec.data.dto.CAFFDto;
@@ -13,6 +11,8 @@ import hu.bme.hit.teamperec.data.response.CAFFResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +22,36 @@ public class CAFFService {
 
     private final UserService userService;
 
-    public List<CAFFResponse> getCaffs() {
-        return caffRepository.findAll().stream().map(this::toResponse).toList();
+    public List<CAFFResponse> getCaffs(String uploaderName, String name) {
+        Set<CAFF> uploaderResults = null;
+        Set<CAFF> nameResults = null;
+
+        if (!StringUtils.hasText(uploaderName) && !StringUtils.hasText(name)) {
+            return caffRepository.findAll().stream().map(this::toResponse).toList();
+        }
+
+        if (StringUtils.hasText(uploaderName)) {
+            uploaderResults =
+                    new HashSet<>(caffRepository.findAllByUploaderUsernameOrderByUploadedAtDesc(uploaderName));
+        }
+        if (StringUtils.hasText(name)) {
+            nameResults = new HashSet<>(caffRepository.findAllByNameOrderByUploadedAtDesc(name));
+        }
+
+        return getOneOrIntersection(uploaderResults, nameResults).stream().map(this::toResponse).toList();
+    }
+
+    private Set<CAFF> getOneOrIntersection(Set<CAFF> first, Set<CAFF> second) {
+        if (CollectionUtils.isEmpty(first) && !CollectionUtils.isEmpty(second)) {
+            return second;
+        } else if (!CollectionUtils.isEmpty(first) && CollectionUtils.isEmpty(second)) {
+            return first;
+        } else if (!CollectionUtils.isEmpty(first) && !CollectionUtils.isEmpty(second)) {
+            first.retainAll(second);
+            return first;
+        } else {
+            return Collections.emptySet();
+        }
     }
 
     public List<CAFFResponse> getCaffsOfUser(UUID uploaderId) {
