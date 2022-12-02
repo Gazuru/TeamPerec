@@ -38,7 +38,8 @@ public class CommentService {
         }
     }
 
-    private CommentResponse toResponse(Comment comment) {
-        return new CommentResponse(comment.getId(), comment.getCommenter().getId(), comment.getCommentText());
+    public CommentResponse toResponse(Comment comment) {
+        return new CommentResponse(comment.getId(), comment.getCommenter().getUsername(), comment.getCommentText(),
+                comment.getCreatedAt().toString());
     }
 }
