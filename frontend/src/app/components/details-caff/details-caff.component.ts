@@ -23,7 +23,7 @@ export class DetailsCaffComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private caffService: CaffService, private commentService: CommentService) {
     this.caff = {
-      comments: undefined, description: "", id: undefined, image: undefined, name: "", uploader: undefined
+      comments: undefined, description: "", id: undefined, imagePreviewBase64: undefined, name: "", uploader: undefined,uploaderName:""
     };
     this.comments=[];
   }

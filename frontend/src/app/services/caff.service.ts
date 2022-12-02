@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable, ReplaySubject} from "rxjs";
 import {FormGroup} from "@angular/forms";
 import {CaffResponse} from "../models/caff-response";
@@ -20,6 +20,19 @@ export class CaffService {
     return this.http.get<CaffResponse[]>(API_URL + 'list');
   }
 
+  getCaffsListSearch(uploaderName: string, name: string): Observable<CaffResponse[]> {
+    if (uploaderName != "" && name != "") {
+      return this.http.get<CaffResponse[]>(API_URL + 'list');
+    }
+    if (name != "") {
+      return this.http.get<CaffResponse[]>(API_URL + 'list');
+    }
+    if (uploaderName != "") {
+      return this.http.get<CaffResponse[]>(API_URL + 'list');
+    }
+    return this.http.get<CaffResponse[]>(API_URL + 'list');
+  }
+
   getMyCaffsList(): Observable<CaffResponse[]> {
     const userId = this.tokenStorageService.getUser().id;
     return this.http.get<CaffResponse[]>(API_URL + 'list');
@@ -27,31 +40,6 @@ export class CaffService {
 
   getCaff(id: string): Observable<CaffResponse> {
     return this.http.get<CaffResponse>(API_URL + id);
-  }
-
-  uploadCaff(file: File, myForm: FormGroup) {
-    const formData = new FormData();
-    //formData.append('file', myForm.get('fileSource')?.value);
-    formData.append('name', myForm.get('name')?.value);
-    formData.append('description', myForm.get('description')?.value,);
-
-    let base64Output: string;
-    this.convertFile(file).subscribe((base64) => {
-      base64Output = base64;
-      formData.append('file', base64Output);
-      console.log(JSON.stringify(formData.get("file")));
-      let headers = new HttpHeaders({
-        'Content-Type': 'multipart/form-data'});
-      let options = { headers: headers };
-      this.http.post<CaffResponse>(API_URL + "upload", formData,options)
-        .subscribe(res => {
-          console.log(res);
-          alert('Uploaded Successfully.');
-        });
-    }, null, () => {
-
-
-    });
   }
 
   convertFile(file: File): Observable<string> {
@@ -66,40 +54,28 @@ export class CaffService {
     return result;
   }
 
-  public uploadFile(file: File, form: FormGroup): Observable<CaffResponse> {
-    let formData = new FormData();
-    formData.append("name", form.get('name')?.value);
-    formData.append("description", form.get('description')?.value);
-    //formData.append('file', this.convertFile(file), file.name);
-
+  testUpload(file: File, myForm: FormGroup) {
+    const formData = new FormData();
 
     let base64Output: string;
     this.convertFile(file).subscribe((base64) => {
       base64Output = base64;
-      formData.append('file', base64Output);
-      let payload: CaffRequest = {
-        name: "",
-        description: "",
-        image: ""
-      };
-      let request = this.http
-        .post<CaffResponse>(
-          API_URL + "upload",
-          payload
-        ).subscribe(null, (error) => {
-          "asdasdasd" + console.log(error)
+
+      let request: CaffRequest = {
+        name: myForm.get('name')?.value,
+        description: myForm.get('description')?.value,
+        imageBase64: base64Output
+      }
+
+      console.log(JSON.stringify(formData.get("file")));
+      this.http.post(API_URL + "upload", request)
+        .subscribe(res => {
+          console.log(res);
         });
-      console.log(request)
-      return request;
-    }, (error) => {
-      console.log(error);
-    }, () => {
+    }, null, () => {
+
 
     });
-
-    return new Observable<CaffResponse>();
-
-
   }
 
 }
