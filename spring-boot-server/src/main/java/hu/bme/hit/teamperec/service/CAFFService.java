@@ -35,10 +35,10 @@ public class CAFFService {
 
         if (StringUtils.hasText(uploaderName)) {
             uploaderResults =
-                    new HashSet<>(caffRepository.findAllByUploaderUsernameOrderByUploadedAtDesc(uploaderName));
+                    new HashSet<>(caffRepository.findAllByUploaderUsernameContainsIgnoreCaseOrderByUploadedAtDesc(uploaderName));
         }
         if (StringUtils.hasText(name)) {
-            nameResults = new HashSet<>(caffRepository.findAllByNameOrderByUploadedAtDesc(name));
+            nameResults = new HashSet<>(caffRepository.findAllByNameContainsIgnoreCaseOrderByUploadedAtDesc(name));
         }
 
         return getOneOrIntersection(uploaderResults, nameResults).stream().map(this::toResponse).toList();
