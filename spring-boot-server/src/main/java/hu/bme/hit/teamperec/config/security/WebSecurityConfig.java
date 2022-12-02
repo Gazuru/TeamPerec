@@ -1,8 +1,8 @@
-package hu.bme.hit.teamperec.security;
+package hu.bme.hit.teamperec.config.security;
 
-import hu.bme.hit.teamperec.security.jwt.AuthEntryPointJwt;
-import hu.bme.hit.teamperec.security.jwt.AuthTokenFilter;
-import hu.bme.hit.teamperec.security.services.UserDetailsServiceImpl;
+import hu.bme.hit.teamperec.config.security.jwt.AuthEntryPointJwt;
+import hu.bme.hit.teamperec.config.security.jwt.AuthTokenFilter;
+import hu.bme.hit.teamperec.config.security.services.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

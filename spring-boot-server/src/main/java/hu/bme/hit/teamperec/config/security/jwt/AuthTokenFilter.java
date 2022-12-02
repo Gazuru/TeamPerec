@@ -1,4 +1,4 @@
-package hu.bme.hit.teamperec.security.jwt;
+package hu.bme.hit.teamperec.config.security.jwt;
 
 import java.io.IOException;
 import javax.servlet.FilterChain;
@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hu.bme.hit.teamperec.security.services.UserDetailsServiceImpl;
+import hu.bme.hit.teamperec.config.security.services.UserDetailsServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

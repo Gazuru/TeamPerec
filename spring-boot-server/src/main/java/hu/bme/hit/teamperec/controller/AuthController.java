@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
 
+import hu.bme.hit.teamperec.config.security.jwt.JwtUtils;
+import hu.bme.hit.teamperec.config.security.services.UserDetailsImpl;
 import hu.bme.hit.teamperec.data.dto.LoginRequest;
 import hu.bme.hit.teamperec.data.dto.SignupRequest;
 import hu.bme.hit.teamperec.data.entity.Role;
@@ -14,8 +16,6 @@ import hu.bme.hit.teamperec.data.repository.RoleRepository;
 import hu.bme.hit.teamperec.data.repository.UserRepository;
 import hu.bme.hit.teamperec.data.response.JwtResponse;
 import hu.bme.hit.teamperec.data.response.MessageResponse;
-import hu.bme.hit.teamperec.security.jwt.JwtUtils;
-import hu.bme.hit.teamperec.security.services.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
