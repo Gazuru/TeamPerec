@@ -5,10 +5,10 @@ import java.util.*;
 import hu.bme.hit.teamperec.data.ComputerSecurityException;
 import hu.bme.hit.teamperec.data.dto.CAFFDto;
 import hu.bme.hit.teamperec.data.entity.CAFF;
-import hu.bme.hit.teamperec.data.entity.Comment;
 import hu.bme.hit.teamperec.data.repository.CAFFRepository;
 import hu.bme.hit.teamperec.data.response.CAFFResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -21,6 +21,9 @@ public class CAFFService {
     private final CAFFRepository caffRepository;
 
     private final UserService userService;
+
+    @Lazy
+    private final CommentService commentService;
 
     public List<CAFFResponse> getCaffs(String uploaderName, String name) {
         Set<CAFF> uploaderResults = null;
@@ -90,7 +93,7 @@ public class CAFFService {
         return new CAFFResponse(caff.getId(),
                 caff.getName(),
                 caff.getDescription(),
-                caff.getComments().stream().map(Comment::getId).toList(),
+                caff.getComments().stream().map(commentService::toResponse).toList(),
                 caff.getImage(),
                 caff.getUploader().getId(),
                 caff.getUploader().getUsername());
