@@ -5,6 +5,7 @@ import {FormGroup} from "@angular/forms";
 import {CaffResponse} from "../models/caff-response";
 import {TokenStorageService} from "./token-storage.service";
 import {CaffRequest} from "../models/caff-request";
+import {Router} from "@angular/router";
 
 const API_URL = 'http://localhost:8080/api/caff/';
 
@@ -13,7 +14,7 @@ const API_URL = 'http://localhost:8080/api/caff/';
 })
 export class CaffService {
 
-  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {
+  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService, private router: Router) {
   }
 
   getCaffsList(): Observable<CaffResponse[]> {
@@ -25,7 +26,7 @@ export class CaffService {
       return this.http.get<CaffResponse[]>(API_URL + 'list', {
         params: {
           uploaderName: uploaderName,
-          name:name
+          name: name
         }
       });
     }
@@ -33,76 +34,77 @@ export class CaffService {
       return this.http.get<CaffResponse[]>(API_URL + 'list', {
         params: {
           name: name
-        }});
-    }
-      if (uploaderName != "") {
-        return this.http.get<CaffResponse[]>(API_URL + 'list', {
-          params: {
-            uploaderName: uploaderName
-          }});
-      }
-      return this.http.get<CaffResponse[]>(API_URL + 'list');
-    }
-
-    getMyCaffsList()
-  :
-    Observable < CaffResponse[] > {
-      const userId = this.tokenStorageService.getUser().id;
-      return this.http.get<CaffResponse[]>(API_URL + 'list');
-    }
-
-    getCaff(id
-  :
-    string
-  ):
-    Observable < CaffResponse > {
-      return this.http.get<CaffResponse>(API_URL + id);
-    }
-
-    convertFile(file
-  :
-    File
-  ):
-    Observable < string > {
-      const result = new ReplaySubject<string>(1);
-      const reader = new FileReader();
-      reader.readAsBinaryString(file);
-      reader.onload = (event) => {
-        if (event.target && event.target.result) {
-          result.next(btoa(event.target.result.toString()));
         }
-      };
-      return result;
-    }
-
-    testUpload(file
-  :
-    File, myForm
-  :
-    FormGroup
-  )
-    {
-      const formData = new FormData();
-
-      let base64Output: string;
-      this.convertFile(file).subscribe((base64) => {
-        base64Output = base64;
-
-        let request: CaffRequest = {
-          name: myForm.get('name')?.value,
-          description: myForm.get('description')?.value,
-          imageBase64: base64Output
-        }
-
-        console.log(JSON.stringify(formData.get("file")));
-        this.http.post(API_URL + "upload", request)
-          .subscribe(res => {
-            console.log(res);
-          });
-      }, null, () => {
-
-
       });
     }
-
+    if (uploaderName != "") {
+      return this.http.get<CaffResponse[]>(API_URL + 'list', {
+        params: {
+          uploaderName: uploaderName
+        }
+      });
+    }
+    return this.http.get<CaffResponse[]>(API_URL + 'list');
   }
+
+  getMyCaffsList()
+    :
+    Observable<CaffResponse[]> {
+    const userId = this.tokenStorageService.getUser().id;
+    return this.http.get<CaffResponse[]>(API_URL + userId + '/caffs');
+  }
+
+  getCaff(id
+            :
+            string
+  ):
+    Observable<CaffResponse> {
+    return this.http.get<CaffResponse>(API_URL + id);
+  }
+
+  convertFile(file
+                :
+                File
+  ):
+    Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = (event) => {
+      if (event.target && event.target.result) {
+        result.next(btoa(event.target.result.toString()));
+      }
+    };
+    return result;
+  }
+
+  testUpload(file
+               :
+               File, myForm
+               :
+               FormGroup
+  ) {
+    const formData = new FormData();
+
+    let base64Output: string;
+    this.convertFile(file).subscribe((base64) => {
+      base64Output = base64;
+
+      let request: CaffRequest = {
+        name: myForm.get('name')?.value,
+        description: myForm.get('description')?.value,
+        imageBase64: base64Output
+      }
+
+      console.log(JSON.stringify(formData.get("file")));
+      this.http.post(API_URL + "upload", request)
+        .subscribe(res => {
+          console.log(res);
+        });
+    }, null, () => {
+
+
+    });
+  }
+
+}

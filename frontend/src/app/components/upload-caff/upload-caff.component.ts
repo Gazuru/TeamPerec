@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CaffService} from "../../services/caff.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-upload-caff',
@@ -10,17 +11,14 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class UploadCaffComponent implements OnInit {
   form: any;
 
-  descriptionMinLength: number = 10;
-  nameMinLength: number = 3;
 
   myForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(this.nameMinLength)]),
-    description: new FormControl('', [Validators.minLength(this.descriptionMinLength)]),
-    file: new FormControl('', [Validators.required, Validators.pattern("^.*\\.(caff|CAFF|Caff)$")]),
-    fileSource: new FormControl('', [Validators.required])
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    description: new FormControl('', [Validators.required, Validators.minLength(10)]),
+    file: new FormControl('', [Validators.required, Validators.pattern("^.*\\.(caff|CAFF|Caff)$")])
   });
 
-  constructor(private caffService: CaffService) {
+  constructor(private caffService: CaffService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -53,8 +51,8 @@ export class UploadCaffComponent implements OnInit {
     try {
 
       //this.caffService.uploadCaff(file,this.myForm);
-      this.caffService.testUpload(file,this.myForm);
-
+      this.caffService.testUpload(file, this.myForm);
+      //this.router.navigate(["/my-caffs"]);
     } catch (error) {
 
       console.warn("File upload failed.");

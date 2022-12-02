@@ -4,15 +4,16 @@
       <img src="https://cdn.pixabay.com/photo/2022/11/01/05/18/coffee-7561288_960_720.jpg"
            class="img-fluid rounded" alt="...">
     </div>
-    <div class="col-md-7 text-end">
-      <div class="card-body">
+    <div class="col-md-7 d-flex flex-row align-content-between justify-content-end flex-wrap">
+      <div class="card-body text-end">
         <h5 class="card-title">Name</h5>
         <p class="card-text text-truncate">{{ caff.name }}</p>
         <h5 class="card-title">Uploader</h5>
-        <p class="card-text text-truncate" [routerLink]="['/details-profile', caff.uploader]">{{ caff.uploaderName }}</p>
+        <p class="card-text text-truncate"
+           [routerLink]="['/details-profile', caff.uploader]">{{ caff.uploaderName }}</p>
       </div>
       <div class="card-footer">
-        <button class="btn btn-light btn-block search-button"  [routerLink]="['/details-caff', caff.id]">Details</button>
+        <button class="btn btn-light btn-block search-button" [routerLink]="['/details-caff', caff.id]">Details</button>
       </div>
     </div>
   </div>

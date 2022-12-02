@@ -1,4 +1,4 @@
-<div class="mt-2">
+<div class="mt-2 col-lg-8 offset-lg-2">
   <h2 class="mb-3">CAFF Details</h2>
   <div class="rounded-3 text-bg-dark p-2">
     <div class="row p-2">
@@ -11,7 +11,7 @@
         <h5>Name</h5>
         <p class="text-break">{{caff.name}}</p>
         <h5>Uploader</h5>
-        <p class="text-break" [routerLink]="['/details-profile',caff.uploader]">{{"asd" + caff.uploaderName}}</p>
+        <p class="text-break" [routerLink]="['/details-profile',caff.uploader]">{{caff.uploaderName}}</p>
         <h5>Description</h5>
         <p class="text-break">{{caff.description}}</p>
       </div>
@@ -38,12 +38,11 @@
               ></textarea>
           </div>
           <div class="form-group">
-            <button class="btn btn-light btn-block"  [disabled]="myForm.invalid" type="submit">
+            <button class="btn btn-light btn-block" [disabled]="myForm.invalid" type="submit">
               Add comment
             </button>
           </div>
         </form>
-
 
 
       </div>
