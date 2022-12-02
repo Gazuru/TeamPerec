@@ -28,6 +28,7 @@ public class CAFF extends BaseEntity {
     @Lob
     @Column(columnDefinition = "LONGTEXT")
     private String caffEncodedString;
+
     @Lob
     @Column(columnDefinition = "LONGTEXT")
     private String gifEncodedString;

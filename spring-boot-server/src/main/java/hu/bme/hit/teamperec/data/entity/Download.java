@@ -8,6 +8,8 @@ import javax.persistence.Table;
 import hu.bme.hit.teamperec.data.response.DownloadResponse;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 
 @Entity
@@ -17,9 +19,11 @@ import org.springframework.data.annotation.CreatedDate;
 public class Download extends BaseEntity {
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private CAFF downloadedCaff;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User downloader;
 
     @CreatedDate

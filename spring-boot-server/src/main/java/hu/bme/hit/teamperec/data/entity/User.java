@@ -12,6 +12,8 @@ import hu.bme.hit.teamperec.data.response.UserResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 @Table(name = "users",
@@ -44,12 +46,15 @@ public class User extends BaseEntity {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "uploader")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<CAFF> caffs = new HashSet<>();
 
     @OneToMany(mappedBy = "commenter")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Comment> comments = new HashSet<>();
 
     @OneToMany(mappedBy = "downloader")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Download> downloads = new HashSet<>();
 
     public User(String username, String email, String password) {
