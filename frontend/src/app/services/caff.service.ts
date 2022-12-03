@@ -115,12 +115,9 @@ export class CaffService {
       let caffBinary = atob(data.caffBase64);
       let enc = new TextEncoder();
       let myBlob = new Blob([new Uint8Array(enc.encode(caffBinary))]);
-      let file = new File([myBlob], "caff_download.caff", {
-        type: "application/caff",
-        lastModified: new Date().getTime()
-      })
       let link = document.createElement('a');
-      link.href = window.URL.createObjectURL(file);
+      link.download = "caff_download.caff";
+      link.href = window.URL.createObjectURL(myBlob);
       link.click();
     });
   }
