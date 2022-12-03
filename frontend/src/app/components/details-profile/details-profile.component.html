@@ -3,7 +3,7 @@
   <div class="rounded-3 text-bg-dark p-2">
     <div class="row p-2">
       <div class="col-md-4 left-container">
-        <div>
+        <div *ngIf="(profile | async) as profile; else loading">
           <h5>Name</h5>
           <p>{{profile.name}}</p>
           <h5>Email</h5>
@@ -18,14 +18,20 @@
           </button>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="(caffs | async) as caffs; else loading">
         <h5>Caffs</h5>
         <app-caff-card-minimal *ngFor="let caff of caffs" [caff]="caff"></app-caff-card-minimal>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="(downloads | async) as downloads; else loading">
         <h5>Downloads</h5>
-        <app-downloaded-caff-card  *ngFor="let download of downloads" [download]="download"></app-downloaded-caff-card>
+        <app-downloaded-caff-card *ngFor="let download of downloads" [download]="download"></app-downloaded-caff-card>
       </div>
+      <ng-template #loading>
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border text-primary" role="status">
+          </div>
+        </div>
+      </ng-template>
 
     </div>
   </div>

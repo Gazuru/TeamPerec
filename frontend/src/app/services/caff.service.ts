@@ -79,12 +79,7 @@ export class CaffService {
     return result;
   }
 
-  testUpload(file
-               :
-               File, myForm
-               :
-               FormGroup
-  ) {
+  testUpload(file: File, myForm: FormGroup) {
     const formData = new FormData();
 
     let base64Output: string;
@@ -98,14 +93,15 @@ export class CaffService {
       }
 
       console.log(JSON.stringify(formData.get("file")));
-      this.http.post(API_URL + "upload", request)
+      let id: string;
+      this.http.post<CaffResponse>(API_URL + "upload", request)
         .subscribe(res => {
-          console.log(res);
-        });
-    }, null, () => {
-
-
-    });
+            console.log(res);
+            id = res.id;
+          },
+          null,
+          () => this.router.navigate([`details-caff/${id}`]));
+    }, null, null);
   }
 
   downloadFile(id: string) {
