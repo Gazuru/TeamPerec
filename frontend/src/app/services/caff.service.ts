@@ -8,7 +8,7 @@ import {CaffRequest} from "../models/caff-request";
 import {Router} from "@angular/router";
 import {CaffDownloadResponse} from "../models/caff-download-response";
 
-const API_URL = 'http://localhost:8080/api/caff/';
+const API_URL = 'https://localhost:8080/api/caff/';
 
 @Injectable({
   providedIn: 'root'

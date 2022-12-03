@@ -4,10 +4,14 @@ import {Observable} from "rxjs";
 import {JwtResponse} from "../models/jwt-response";
 import {MessageResponse} from "../models/message-response";
 
-const AUTH_API = 'http://localhost:8080/api/auth/';
+const AUTH_API = 'https://localhost:8080/api/auth/';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'withCredentials': 'true'
+  })
 };
 
 @Injectable({
