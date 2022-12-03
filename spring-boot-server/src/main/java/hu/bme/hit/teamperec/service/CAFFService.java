@@ -32,7 +32,7 @@ public class CAFFService {
         Set<CAFF> uploaderResults = null;
         Set<CAFF> nameResults = null;
 
-        if (!StringUtils.hasText(uploaderName) && !StringUtils.hasText(name)) {
+        if ((!StringUtils.hasText(uploaderName) && !StringUtils.hasText(name)) || (uploaderName.equals("null") && name.equals("null"))) {
             return caffRepository.findAll().stream().map(CAFF::toResponse).toList();
         }
 
@@ -132,7 +132,6 @@ public class CAFFService {
             } else {
                 path = "./native/caff_parser";
             }
-            String md5 = "?????";
 
             var caffByteArray = Base64.getDecoder().decode(base64encodedString);
             Files.write(Paths.get("temp"), caffByteArray);
@@ -158,8 +157,11 @@ public class CAFFService {
 
         process.waitFor();
 
-        return Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("generated_caff.gif")));
-
+        if (process.exitValue() == 0) {
+            return Base64.getEncoder().encodeToString(Files.readAllBytes(Paths.get("generated_caff.gif")));
+        } else {
+            throw new ComputerSecurityException(errorMessage.toString());
+        }
     }
 
 }
