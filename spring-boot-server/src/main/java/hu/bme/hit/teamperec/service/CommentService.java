@@ -1,5 +1,6 @@
 package hu.bme.hit.teamperec.service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import hu.bme.hit.teamperec.data.dto.CommentDto;
@@ -28,6 +29,7 @@ public class CommentService {
         comment.setCommentText(commentDto.commentText());
         comment.setCaff(caff);
         comment.setCommenter(user);
+        comment.setCreatedAt(LocalDateTime.now());
 
         return commentRepository.save(comment).toResponse();
     }

@@ -32,7 +32,8 @@ public class CAFFService {
         Set<CAFF> uploaderResults = null;
         Set<CAFF> nameResults = null;
 
-        if ((!StringUtils.hasText(uploaderName) && !StringUtils.hasText(name)) || (uploaderName.equals("null") && name.equals("null"))) {
+        if ((!StringUtils.hasText(uploaderName) && !StringUtils.hasText(name))
+                || (Objects.requireNonNullElse(uploaderName, "null").equals("null") && Objects.requireNonNullElse(name, "null").equals("null"))) {
             return caffRepository.findAll().stream().map(CAFF::toResponse).toList();
         }
 
@@ -131,6 +132,10 @@ public class CAFFService {
                 path = "./native/caff_parser.exe";
             } else {
                 path = "./native/caff_parser";
+            }
+
+            if (!Files.exists(Paths.get(path))) {
+                path = "." + path;
             }
 
             var caffByteArray = Base64.getDecoder().decode(base64encodedString);

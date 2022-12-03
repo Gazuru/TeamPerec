@@ -1,5 +1,6 @@
 package hu.bme.hit.teamperec.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,6 +67,7 @@ public class UserService {
         var download = new Download();
         download.setDownloader(user);
         download.setDownloadedCaff(caff);
+        download.setDownloadDate(LocalDateTime.now());
         download = downloadRepository.save(download);
         user.getDownloads().add(download);
         userRepository.save(user);

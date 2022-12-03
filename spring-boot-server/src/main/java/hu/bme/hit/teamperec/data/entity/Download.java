@@ -1,6 +1,6 @@
 package hu.bme.hit.teamperec.data.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table(name = "downloads")
@@ -26,8 +25,7 @@ public class Download extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User downloader;
 
-    @CreatedDate
-    private Date downloadDate;
+    private LocalDateTime downloadDate;
 
     public DownloadResponse toResponse() {
         return new DownloadResponse(this.getDownloadedCaff().getId(),

@@ -1,6 +1,6 @@
 package hu.bme.hit.teamperec.data.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 
 import hu.bme.hit.teamperec.data.response.CommentResponse;
@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Table(name = "comments")
@@ -28,8 +27,7 @@ public class Comment extends BaseEntity {
 
     private String commentText;
 
-    @CreatedDate
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     public CommentResponse toResponse() {
         return new CommentResponse(this.getId(),
