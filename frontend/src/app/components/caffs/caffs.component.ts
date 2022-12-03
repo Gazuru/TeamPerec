@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CaffService} from "../../services/caff.service";
 import {CaffResponse} from "../../models/caff-response";
+import {FormControl, FormGroup} from "@angular/forms";
+import {EMPTY, Observable} from "rxjs";
 
 @Component({
   selector: 'app-caffs',
@@ -8,12 +10,12 @@ import {CaffResponse} from "../../models/caff-response";
   styleUrls: ['./caffs.component.css']
 })
 export class CaffsComponent implements OnInit {
-  form: any = {
-    name: "",
-    uploaderName: ""
-  };
+  caffForm = new FormGroup({
+    name: new FormControl(),
+    uploaderName: new FormControl()
+  });
 
-  caffs: CaffResponse[] = [];
+  caffs: Observable<CaffResponse[]> = EMPTY;
 
   constructor(private caffService: CaffService) {
   }
@@ -23,19 +25,10 @@ export class CaffsComponent implements OnInit {
   }
 
   searchCaffs() {
-    this.caffService.getCaffsListSearch(this.form.uploaderName,this.form.name).subscribe(
-      data => {
-        this.caffs = data;
-      }
-    )
+    this.caffs = this.caffService.getCaffsListSearch(this.caffForm.get('uploaderName')?.value, this.caffForm.get('name')?.value)
   }
 
   getCaffsList() {
-    this.caffService.getCaffsList().subscribe(
-      data => {
-        console.log(data);
-        this.caffs = data;
-      }
-    );
+    this.caffs = this.caffService.getCaffsList();
   }
 }

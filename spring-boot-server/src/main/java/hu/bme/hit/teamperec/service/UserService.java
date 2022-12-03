@@ -14,6 +14,7 @@ import hu.bme.hit.teamperec.data.repository.UserRepository;
 import hu.bme.hit.teamperec.data.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,8 @@ public class UserService {
     private final UserRepository userRepository;
 
     private final DownloadRepository downloadRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     public User getUserById(UUID id) {
         return userRepository.findById(id).orElseThrow(
@@ -46,7 +49,7 @@ public class UserService {
 
         user.setUsername(userDto.username());
         user.setEmail(userDto.email());
-        user.setPassword(userDto.password());
+        user.setPassword(passwordEncoder.encode(userDto.password()));
 
         return userRepository.save(user).toResponse();
     }

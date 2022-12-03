@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CaffService} from "../../services/caff.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-upload-caff',
@@ -18,7 +17,7 @@ export class UploadCaffComponent implements OnInit {
     file: new FormControl('', [Validators.required, Validators.pattern("^.*\\.(caff|CAFF|Caff)$")])
   });
 
-  constructor(private caffService: CaffService, private router: Router) {
+  constructor(private caffService: CaffService) {
   }
 
   ngOnInit(): void {
@@ -28,20 +27,7 @@ export class UploadCaffComponent implements OnInit {
     return this.myForm.controls;
   }
 
-  /*onFileChange(event: any) {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.myForm.patchValue({
-        fileSource: file
-      });
-    }
-  }*/
-
-  submit() {
-    //this.caffService.uploadCaff(this.myForm);
-  }
-
-  async uploadFile(fileInput: any) {
+  uploadFile(fileInput: any) {
     let files: File[] = fileInput.files;
     if (files.length < 1) {
       return;

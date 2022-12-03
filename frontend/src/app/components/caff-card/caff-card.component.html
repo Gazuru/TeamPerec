@@ -6,7 +6,7 @@
     <div class="col-md-6 d-flex flex-row align-content-between justify-content-end flex-wrap">
       <div class="card-body text-end">
         <h5 class="card-title">Name</h5>
-        <p class="card-text text-truncate">{{ caff.name }}</p>
+        <p class="card-text text-truncate" style="max-width: 150px">{{ caff.name }}</p>
         <h5 class="card-title">Uploader</h5>
         <p class="card-text text-truncate"
            [routerLink]="['/details-profile', caff.uploader]">{{ caff.uploaderName }}</p>

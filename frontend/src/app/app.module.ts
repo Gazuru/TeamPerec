@@ -35,7 +35,7 @@ import {ProfilesComponent} from './components/profiles/profiles.component';
     CommentComponent,
     CaffCardMinimalComponent,
     DownloadedCaffCardComponent,
-    ProfilesComponent
+    ProfilesComponent,
   ],
   imports: [
     BrowserModule,

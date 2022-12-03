@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProfileService} from "../../services/profile.service";
 import {ProfileResponse} from "../../models/profile-response";
 import {TokenStorageService} from "../../services/token-storage.service";
+import {EMPTY, Observable} from "rxjs";
 
 @Component({
   selector: 'app-profiles',
@@ -9,17 +10,14 @@ import {TokenStorageService} from "../../services/token-storage.service";
   styleUrls: ['./profiles.component.css']
 })
 export class ProfilesComponent implements OnInit {
-  profiles: ProfileResponse[] = [];
+  profiles: Observable<ProfileResponse[]> = EMPTY;
   showAdmin = false;
 
   constructor(private profileService: ProfileService, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
-    this.profileService.getProfiles().subscribe(data => {
-      this.profiles = data;
-      console.log(this.profiles)
-    });
+    this.profiles = this.profileService.getProfiles();
     this.showAdmin = this.tokenStorageService.getUser().roles.includes('ROLE_ADMIN');
   }
 
