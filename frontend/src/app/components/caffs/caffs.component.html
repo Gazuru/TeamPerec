@@ -1,0 +1,43 @@
+<div class="mt-2">
+  <h2>Browse CAFFs</h2>
+  <form
+    class="search-form mb-3 mt-3"
+    name="form"
+    (ngSubmit)="searchCaffs()"
+    [formGroup]="caffForm"
+    novalidate
+  >
+    <div class="form-group">
+      <label for="name_search">Name</label>
+      <input
+        id="name_search"
+        type="text"
+        class="form-control"
+        name="name"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-group">
+      <label for="uploader_search">Uploader</label>
+      <input
+        id="uploader_search"
+        type="text"
+        class="form-control"
+        name="uploader"
+        formControlName="uploaderName"
+      />
+    </div>
+    <div class="form-group">
+      <button class="btn btn-dark btn-block search-button">Search</button>
+    </div>
+  </form>
+  <div class="caffs-container" *ngIf="(caffs | async) as caffs; else loading">
+    <app-caff-card *ngFor="let caff of caffs" [caff]="caff"></app-caff-card>
+  </div>
+  <ng-template #loading>
+    <div class="d-flex justify-content-center">
+      <div class="spinner-border text-primary" role="status">
+      </div>
+    </div>
+  </ng-template>
+</div>

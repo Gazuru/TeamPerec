@@ -1,0 +1,15 @@
+.caff-card-container {
+  background-color: black;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card {
+  margin: 20px;
+}
+
+.card-footer {
+  border: 0;
+}

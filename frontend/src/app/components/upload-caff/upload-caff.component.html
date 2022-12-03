@@ -1,0 +1,69 @@
+<div class="mt-2  col-lg-8 offset-lg-2">
+  <h2 class="mb-3">Upload CAFF</h2>
+  <form [formGroup]="myForm"
+        name="form"
+        (ngSubmit)="uploadFile(fileInput)">
+    <div class="rounded-3 text-bg-dark p-2">
+      <div class="row p-2">
+        <div class="col-md-5 left">
+
+          <div class="form-group">
+            <label for="file">File</label>
+            <input
+              #fileInput
+              formControlName="file"
+              id="file"
+              type="file"
+              class="form-control">
+            <div *ngIf="f['file'].touched && f['file'].invalid" class="alert alert-danger mt-2">
+              <div *ngIf="f['file'].errors && f['file'].errors['required']">File is required.</div>
+              <div *ngIf="f['file'].errors && f['file'].errors['pattern']">File should be of extensions: .caff, .CAFF,
+                .Caff.
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group submit-container mt-2">
+            <button class="btn btn-light btn-block w-100" type="submit"
+                    [disabled]="myForm.invalid">Upload CAFF
+            </button>
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              formControlName="name"
+              id="name"
+              type="text"
+              class="form-control">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="alert alert-danger mt-2">
+              <div *ngIf="f['name'].errors && f['name'].errors['required']">Name is required.</div>
+              <div *ngIf="f['name'].errors && f['name'].errors['minlength']">Name should be at least 3
+                characters.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              formControlName="description"
+              id="description"
+              rows="7"
+              type="text"
+              class="form-control"></textarea>
+            <div *ngIf="f['description'].touched && f['description'].invalid" class="alert alert-danger mt-2 mb-0">
+              <div *ngIf="f['description'].errors && f['description'].errors['required']">Description is required.</div>
+              <div *ngIf="f['description'].errors && f['description'].errors['minlength']">Description should be at
+                least 10 characters.
+              </div>
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>

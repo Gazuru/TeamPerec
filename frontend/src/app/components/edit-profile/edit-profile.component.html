@@ -1,0 +1,71 @@
+<div class="mt-2">
+  <h2 class="mb-3">Profile Edit</h2>
+  <div class="rounded-3 text-bg-dark p-2">
+    <div class="row p-2">
+      <div class="col-md-6 offset-md-3">
+
+        <form [formGroup]="myForm" (ngSubmit)="submit()">
+          <div class="rounded-3 text-bg-dark p-2">
+
+
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                [ngModel]="profile.name"
+                formControlName="name"
+                id="name"
+                type="text"
+                class="form-control mb-2">
+              <div *ngIf="f['name'].touched && f['name'].invalid" class="alert alert-danger mt-2">
+                <div *ngIf="f['name'].errors && f['name'].errors['required']" class="">Name is required.</div>
+                <div *ngIf="f['name'].errors && f['name'].errors['minlength']" class="">Name should be at
+                  least 8 characters.
+                </div>
+              </div>
+
+              <label for="email">Email</label>
+              <input
+                [ngModel]="profile.email"
+                formControlName="email"
+                id="email"
+                type="text"
+                class="form-control mb-2">
+              <div *ngIf="f['email'].touched && f['email'].invalid" class="alert alert-danger mt-2">
+                <div *ngIf="f['email'].errors && f['email'].errors['required']" class="">Email is required.</div>
+                <div *ngIf="f['email'].errors && f['email'].errors['email']" class="">Email format incorrect.
+                </div>
+              </div>
+
+              <label for="password">Password</label>
+              <input
+                formControlName="password"
+                id="password"
+                type="password"
+                class="form-control mb-4">
+              <div *ngIf="f['password'].touched && f['password'].invalid" class="alert alert-danger mt-2">
+                <div *ngIf="f['password'].errors && f['password'].errors['required']" class="">Password is required.
+                </div>
+                <div *ngIf="f['password'].errors && f['password'].errors['minlength']" class="">Password should be at
+                  least 8 characters.
+                </div>
+              </div>
+
+
+              <div class="form-group d-flex">
+                <button class="btn btn-outline-light btn-block w-100 search-button me-3"
+                        [routerLink]="['/details-profile',id]">Cancel
+                </button>
+                <button class="btn btn-light btn-block w-100" [disabled]="myForm.invalid" type="submit">Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

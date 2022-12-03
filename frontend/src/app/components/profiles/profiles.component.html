@@ -1,0 +1,39 @@
+<div class="mt-2 col-lg-8 offset-lg-2">
+  <h2 class="mb-3">All profiles</h2>
+  <div class="rounded-3 text-bg-dark p-2">
+    <div class="row p-2">
+      <table class="table table-dark" *ngIf="(profiles | async) as profiles; else loading">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let profile of profiles">
+          <td>{{profile.name}}</td>
+          <td>{{profile.email}}</td>
+          <td class="text-end">
+            <button class="btn btn-light btn-block ms-2" [routerLink]="['/details-profile',profile.id]">Details</button>
+            <button *ngIf="showAdmin" class="btn btn-outline-light btn-block ms-2"
+                    [routerLink]="['/edit-profile',profile.id]">Edit
+            </button>
+            <button *ngIf="showAdmin" class="btn btn-danger btn-block ms-2"
+                    (click)="deleteProfile(profile.id)">Delete
+            </button>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+      <ng-template #loading>
+        <div class="d-flex justify-content-center">
+          <div class="spinner-border text-primary" role="status">
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+</div>
