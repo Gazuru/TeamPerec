@@ -1,7 +1,9 @@
 <div class="text-bg-light p-2 rounded mb-2">
-  <div class="d-flex justify-content-between">
-    <h5>{{comment.commenter}}</h5><span>{{comment.creationDate}}</span>
-    <button *ngIf="showDeleteButton" class="btn btn-danger btn-block px-2.5 pt-0 pb-1 fw-bold lh-1"
+  <div class="d-flex justify-content-between align-items-center flex-nowrap">
+    <div class="d-flex flex-wrap"><h5 class="m-0">{{comment.commenter}}</h5>
+      <span>{{comment.creationDate}}</span></div>
+
+    <button *ngIf="showDeleteButton" class="btn btn-danger btn-block px-2.5 pt-0 pb-1 fw-bold lh-2"
             (click)="deleteComment()">⨉
     </button>
   </div>

@@ -10,6 +10,7 @@ import {DetailsProfileComponent} from "./components/details-profile/details-prof
 import {AuthUserGuard} from "./guards/auth-user.guard";
 import {EditProfileComponent} from "./components/edit-profile/edit-profile.component";
 import {ProfilesComponent} from "./components/profiles/profiles.component";
+import {AuthAdminGuard} from "./guards/auth-admin.guard";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -19,7 +20,7 @@ const routes: Routes = [
   {path: 'upload-caff', component: UploadCaffComponent},
   {path: 'details-caff/:id', component: DetailsCaffComponent},
   {path: 'details-profile/:id', component: DetailsProfileComponent},
-  {path: 'edit-profile/:id', component: EditProfileComponent},
+  {path: 'edit-profile/:id', component: EditProfileComponent, canActivate: [AuthAdminGuard]},
   {path: 'profiles', component: ProfilesComponent},
   {path: '', redirectTo: 'login', pathMatch: 'full'}
 ];
