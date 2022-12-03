@@ -6,7 +6,7 @@ import {FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {ProfileRequest} from "../models/profile-request";
 
-const API_URL = 'http://localhost:8080/api/user/';
+const API_URL = 'https://localhost:8080/api/user/';
 
 
 @Injectable({
@@ -16,9 +16,11 @@ export class ProfileService {
 
   constructor(private http: HttpClient, private router: Router) {
   }
+
   getProfiles(): Observable<ProfileResponse[]> {
     return this.http.get<ProfileResponse[]>(API_URL + "list");
   }
+
   getProfile(id: string): Observable<ProfileResponse> {
     return this.http.get<ProfileResponse>(API_URL + id);
   }
