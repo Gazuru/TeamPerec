@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // TODO document why this method 'ngOnInit' is empty
+
   }
 
   onSubmit(): void {

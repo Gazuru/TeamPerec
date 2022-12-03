@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {CaffResponse} from "../models/caff-response";
 import {CommentResponse} from "../models/comment-response";
 import { FormGroup } from '@angular/forms';
 import {CommentRequest} from "../models/comment-request";
